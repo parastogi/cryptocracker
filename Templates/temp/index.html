@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+    {% load static %}
+
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Animated Background Headers | Demo 1</title>
+		<meta name="description" content="Examples for creative website header animations using Canvas and JavaScript" />
+		<meta name="keywords" content="header, canvas, animated, creative, inspiration, javascript" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="{% static  '/crypto/css/normalize.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static  '/crypto/css/demo.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static '/crypto/css/component.css' %}" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Just+Another+Hand" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Raleway:200,400,800' rel='stylesheet' type='text/css'>
+		<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+		<style>
+		.btn{
+			background-color: #000000;
+	    border-color: #000000;
+
+		}
+		.btn:hover{
+			background-color: #5AE311;
+	    border-color: #000000;
+		}
+		.navlink{
+			color: #f9f1e9;
+		}
+		.navlink:hover 	{
+			color: #5AE311;
+		}
+		.material-icons{
+			font-size: 48px;
+		}
+		.material-icons:hover{
+			color: #5AE311
+		}
+		section{
+			font-family: 'Just Another Hand';
+			font-size: 50px;
+			margin-top: 100px;
+			padding: 0px;
+		}
+
+		#1{
+			font-family: 'Sedgwick Ave Display';
+			color: #f9f1e9;
+		text-align: center;
+		}
+		.modal{
+			max-height: 50%;
+		}
+		</style>
+		<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<h1>{{ name }}</h1>
+		<div class=" demo-1">
+			<div class="content">
+				<div class="navbar-fixed ">
+			    <nav>
+			      <div class="nav-wrapper black">
+			        <a href="/" class="brand-logo"><img src="{% static 'crypto/logo2.png' %}" id="logo"></a>
+			        <ul class="left hide-on-med-and-down" style="margin-left:50px">
+			          <li><a href="quiz/" class="navlink">Quiz</a></li>
+			          <li><a href="badges.html" class="navlink">Components</a></li>
+			        </ul>
+							{% if name %}
+								<ul class="right hide-on-med-and-down">
+									<li><i class="material-icons">perm_identity</i></li>
+									<li>{{uname}}</li>
+								</ul>
+							{% else %}
+								<ul class="right hide-on-med-and-down">
+									<li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" ><center>Login</center></a></li>
+									<li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" ><center>Sign Up</center></a></li>
+								</ul>
+							{% endif %}
+
+			      </div>
+			    </nav>
+			  </div>
+
+
+				<div id="modal1" class="modal container">
+			    <div class="modal-content">
+						<div class="row">
+							<div class="col s12" style="padding:0px;">
+								<ul class="tabs">
+									<li class="tab col s6"><a id="login_buton" href="#login"  style="border-right: 2px solid rgba(204,204,204,0.3);border-bottom:2px solid rgba(204,204,204,0.3)">Login</a></li>
+									<li class="tab col s6"><a id="signup_button" style="border-bottom: 2px solid rgba(204,204,204,0.3);" href="#signup">Sign Up</a></li>
+								</ul>
+								<div id= "login" class=" col s12" style="margin-top:70px">
+										<form class="col s12" action="login/" method="post">
+											{% csrf_token %}
+											<i class="material-icons col s2 offset-s2 " style="padding-left: 50px;padding-top:8px">account_circle</i>
+											<input type="text" class="col s6 validate" name="username" required placeholder="username">
+											<i class="material-icons col s2 offset-s2 "  style="padding-left: 50px;padding-top:8px">lock</i>
+											<input type="password" name="password" class="col s6 validate" required placeholder="Password">
+											<button type="submit" style="margin-top:30px"class= "modal-action modal-close waves-effect waves-green btn col s2 offset-s5">Login</button>
+									</form>
+								</div>
+								<div id="signup" class="col s12">
+									<form class="col s12" action="signup/" method="post">
+										{% csrf_token %}
+										<i class="material-icons col s2 offset-s2" style="padding-left: 50px;padding-top:8px">account_circle</i>
+										<input type="text" class="col s6 validate" name="username" required placeholder="username">
+										<input type="text" class="col s5 validate "  name="roll1" required placeholder="Roll No. 1">
+										<input type="text" class="col offset-s2 s5  validate "  name="roll2" required placeholder="Roll No. 2">
+										<i class="material-icons col s1 ">email</i>
+										<input type="email" name="email" class="col s4 validate" required placeholder="email">
+										<i class="material-icons col s1 offset-s2">phone</i>
+										<input type="number" name="ph_no" class="col s4 validate" required placeholder="Phone No.">
+										<i class="material-icons col s2 offset-s2"  style="padding-left: 50px;padding-top:8px">lock</i>
+										<input type="password" name="password" class="col s6 validate" required placeholder="Password">
+										<button type="submit" style="margin-top:30px"class= "modal-action modal-close waves-effect waves-green btn col s2 offset-s5">Login</button>
+								</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+			  </div>
+
+
+				<div id="large-header" class="large-header">
+					<canvas id="demo-canvas"></canvas>
+					<h1 class="main-title">CRYPTOCRAKER</h1>
+				</div>
+				{{ uname }}
+			</div>
+			<!-- Related demos -->
+		</div><!-- /container -->
+		<script src="{% static 'crypto/js/TweenLite.min.js' %}"></script>
+		<script src="{% static 'crypto/js/EasePack.min.js' %}"></script>
+		<script src="{% static 'crypto/js/rAF.js' %}"></script>
+		<script src="{% static 'crypto/js/demo-1.js' %}"></script>
+		<script>
+		$(document).ready(function(){
+			if(context==-1)
+			{
+				alert("Wrong Credentials!!");
+			}
+		});
+		$;('.modal-trigger').click(function(){
+	    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+	    $('.modal').modal();
+  	});
+
+		$('.tab').click(function(){
+
+		})
+		</script>
+
+	</body>
+</html>
