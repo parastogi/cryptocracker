@@ -28,324 +28,129 @@
 	</head>
 	<body>
 
+		{% include "crypto/sidenavbar.html" %}
 
-		<div class="ui sidebar inverted vertical menu">
-        <div class="ui doubling stackable grid container">
+		{% block sidenav %}
+		{% endblock %}
 
-            <div class="ui inverted centered raised item"></div>
-
-            {% comment %}The User Item starts here!{% endcomment %}
-						{% block userdetail%}
-						{% endblock %}
-            {% comment %}The User Item ends here!{% endcomment %}
-
-            <div class="ui divider inverted"></div>
-
-            {% comment %}The Modules Accordian starts here!{% endcomment %}
-            <div class="ui vertical inverted accordion fluid menu" style="margin-bottom: 24px;">
-                <div class="item">
-                    <a class="active title">
-                        <i class="dropdown icon"></i>
-                        <span class="ui inverted header">
-                            Modules
-                        </span>
-                    </a>
-                    <div class="content">
-                        <div class="items">
-                            <a class="item" href="#">
-                                <h4>Leave Module</h4>
-                            </a>
-
-                            <a class="item" href="#">
-                                <h4>Hostel Module</h4>
-                            </a>
-
-                            <a class="item" href="#">
-                                <h4>Complaint Module</h4>
-                            </a>
-
-                            <a class="item" href="#">
-                                <h4>Mess Module</h4>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% comment %}The Modules Accordian ends here!{% endcomment %}
-
-            {% comment %}The email Item starts here!{% endcomment %}
-            <div class="centered raised item">
-                <span class="inverted header">Emails</span>
-                <i class="large inverted mail icon right floated"></i>
-            </div>
-            {% comment %}The email Item ends here!{% endcomment %}
-
-            {% comment %}The Webpage Item starts here!{% endcomment %}
-            <div class="centered raised item">
-                <span class="inverted header">Webpage</span>
-                <i class="large inverted external icon right floated"></i>
-            </div>
-            {% comment %}The Webpage Item ends here!{% endcomment %}
-
-            {% comment %}The Activity Log Item starts here!{% endcomment %}
-            <div class="centered raised item">
-                <span class="inverted header">Activity Log</span>
-                <i class="large inverted area chart icon right floated"></i>
-            </div>
-            {% comment %}The Activity Log Item ends here!{% endcomment %}
-
-            {% comment %}The Logout Item starts here!{% endcomment %}
-						{% if user.is_authenticated %}
-            <a class="centered raised item" href="/logout/">
-                <span class="inverted header">Logout</span>
-                <i class="large inverted sign out icon right floated"></i>
-            </a>
-						{% endif %}
-            <div class="item"></div>
-            {% comment %}The Logout Item ends here!{% endcomment %}
-
-        </div>
-    </div>
 		<div>
-        <div class="ui stackable massive inverted top attached menu" id="navbar">
-            <a class="item" id="sidebartrigger">
-                <i class="sidebar icon"></i>
-            </a>
-            <a class="item" href="#" >
-                <span>
-                    Quiz!
-                </span>
-            </a>
-
-            <a class="item" href="#">
-                <i class="ui active inverted large home icon"></i>
-                Dashboard
-            </a>
-
-            <div class="right inverted menu">
-                {% block loggedin %}
-								{% endblock %}
-            </div>
-        </div>
-
-	        <div class="ui grid">
-						<div class="ui row"style="margin-top:5em;margin-left:2em;margin-right:3em;margin-bottom:10em	">
-							<div class="ui inverted vertical masthead nine wide column " id="divcontent">
-								<div class="fotorama "data-width="100%" data-height="50em">
-								  <img src="{% static 'crypto/img/quiz.jpg' %}">
-								  <img src="{% static 'crypto/img/quotes2.jpg' %}">
-								</div>
-						</div>
-						<!-- login -->
-						<div class="ui piled segment right floated six wide column " id="loginblock" style="height:55em;padding-top:15em;padding-left:7em;padding-right:7em;display:block">
-
-							<div class="ui middle aligned center aligned grid">
-								<div class="column">
-									<h2 class="ui teal image header">
-										<img src="{% static 'crypto/logo2.png' %}" class="image">
-										<div class="center content">
-											Log-in to your account
-										</div>
-									</h2>
-									<form class="ui large form" action="/	login/" method="post">
-										{% csrf_token %}
-										<div class="ui stacked segment">
-											<div class="field">
-												<div class="ui left icon input">
-													<i class="user icon"></i>
-													<input type="text" class="col s6 validate" name="username" required placeholder="username">
-												</div>
-											</div>
-											<div class="field">
-												<div class="ui left icon input">
-													<i class="lock icon"></i>
-													<input type="password" name="password" class="col s6 validate" required placeholder="Password">
-												</div>
-											</div>
-											<button type="submit" style="margin-top:30px"class= "ui fluid large teal button">Login</button>
-										</div>
-
-										<div class="ui error message"></div>
-
-									</form>
-
-									<div class="ui message">
-										New to us? <a id="signupdivert">Sign Up</a>
-									</div>
-								</div>
-								</div>
-							</div>
-
-							<!-- signup -->
-
-							<div class="ui piled segment right floated six wide column " id="signupblock" style="height:55em;padding-top:8em;padding-left:7em;padding-right:7em;display:none">
-
-								<div class="ui middle aligned center aligned grid">
-									<div class="column">
-										<h2 class="ui teal image header">
-											<img src="{% static 'crypto/logo2.png' %}" class="image">
-											<div class="center content">
-												Make a new account account
-											</div>
-										</h2>
-										<form class="ui large form" action="signup/" method="post">
-											{% csrf_token %}
-											<div class="ui stacked segment">
-												<div class="field">
-													<div class="ui left icon input">
-														<i class="user icon"></i>
-														<input type="text" class="col s6 validate" name="username" required placeholder="username">
-													</div>
-												</div>
-
-												<div class="field">
-													<div class="ui left icon input">
-														<i class="user icon"></i>
-														<input type="text" class="col s5 validate "  name="roll" required placeholder="Roll No">
-													</div>
-												</div>
-
-												<div class="field">
-													<div class="ui left icon input">
-														<i class="mail icon"></i>
-														<input type="email" name="email" class="col s4 validate" required placeholder="email">
-													</div>
-												</div>
-
-												<div class="field">
-													<div class="ui left icon input">
-														<i class="phone icon"></i>
-														<input type="number" name="ph_no" class="col s4 validate" required placeholder="Phone No.">
-													</div>
-												</div>
-												<div class="field">
-													<div class="ui left icon input">
-														<i class="lock icon"></i>
-														<input type="password" name="password" class="col s6 validate" required placeholder="Password">
-													</div>
-												</div>
-												<!-- <div class="ui fluid large teal submit button">Signup</div> -->
-												<button class="ui fluid large teal button" type="submit">Signup</button>
-
-											</div>
-
-											<div class="ui error message"></div>
-
-										</form>
-
-										<div class="ui message">
-											Already have an account?<a id="logindivert">Log In</a>
-										</div>
-									</div>
-									</div>
-								</div>
-						</div>
-						<!-- <div data-wow-iteration="5" data-wow-duration="0.25s" class="span3 wow pulse" style="visibility: visible; animation-duration: 0.25s; animation-iteration-count: 5; animation-name: pulse;">
-              <p class="circle bg-blue">just scroll</p>
-            </div> -->
-						<!-- <div class="span3 wow rollIn center circlular" style="visibility: visible; animation-name: rollIn;"><img src="{% static 'fusion/img/zlatan.jpg' %}" height="200"></div>
-						<div class="span3 wow rollIn center" style="visibility: visible; animation-name: rollIn;"><img src="{% static 'fusion/img/zlatan.jpg' %}" height="200"></div> -->
-						<div class="ui special cards" style="margin-left:10em;margin-top:30em;margin-bottom:30em">
-						  <div class="span3 wow bounceInLeft" style="margin:5em;height:50em;width:30em">
-						    <div class="blurring dimmable image"style="height:40em">
-						      <div class="ui dimmer">
-						        <div class="content">
-						          <div class="center">
-						            <div class="ui inverted button">Dive In</div>
-						          </div>
-						        </div>
-						      </div>
-						      <img  src="{% static 'fusion/img/zlatan.jpg' %}"style="height:40em">
-						    </div>
-						    <div class="content">
-						      <a class="header">Live Contests</a>
-						      <div class="meta">
-						        <span class="date">Create in Sep 2014</span>
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <a>
-						        <i class="users icon"></i>
-						        2 Members
-						      </a>
-						    </div>
-						  </div>
-							<div class="span3 wow bounceInDown center" style="margin:5em;height:50em;width:30em">
-						    <div class="blurring dimmable image"style="height:40em">
-						      <div class="ui dimmer">
-						        <div class="content">
-						          <div class="center">
-						            <div class="ui inverted button">Dive In</div>
-						          </div>
-						        </div>
-						      </div>
-						      <img  src="{% static 'fusion/img/zlatan.jpg' %}"style="height:40em">
-						    </div>
-						    <div class="content">
-						      <a class="header">What You Missed?</a>
-						      <div class="meta">
-						        <span class="date">Create in Sep 2014</span>
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <a>
-						        <i class="users icon"></i>
-						        2 Members
-						      </a>
-						    </div>
-						  </div>
-							<div class="span3 wow bounceInRight" style="margin:5em;height:50em;width:30em">
-						    <div class="blurring dimmable image" style="height:40em">
-						      <div class="ui dimmer">
-						        <div class="content">
-						          <div class="center">
-						            <div class="ui inverted button">Dive In</div>
-						          </div>
-						        </div>
-						      </div>
-						      <img  src="{% static 'fusion/img/zlatan.jpg' %}" style="height:40em">
-						    </div>
-						    <div class="content">
-						      <a class="header">What's ahead?</a>
-						      <div class="meta">
-						        <span class="date">Create in Sep 2014</span>
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <a>
-						        <i class="users icon"></i>
-						        2 Members
-						      </a>
-						    </div>
-						  </div>
+			{% include 'crypto/navbar.html' %}
+			{% block navbar %}
+			{% endblock %}
+			<div class="ui grid" style="padding-top:15em">
+				<div class="ui row"style="margin-left:2em;margin-right:3em;margin-bottom:10em	">
+					<div class="ui inverted vertical masthead nine wide column " id="divcontent">
+						<div class="fotorama "data-width="100%" data-height="50em">
+						  <img src="{% static 'crypto/img/quiz.jpg' %}">
+						  <img src="{% static 'crypto/img/quotes2.jpg' %}">
 						</div>
 					</div>
+					{% include "crypto/login_signup.html" %}
+
+					{% block login_signup %}
+					{% endblock %}
 				</div>
-			</div>
+				<div class="ui special cards" style="margin-left:10em;margin-top:20em;margin-bottom:1q0em;">
+				  <div class="span3 wow bounceInLeft" style="margin:5em;height:50em;width:30em">
+				    <div class="blurring dimmable image"style="height:40em">
+				      <div class="ui dimmer">
+				        <div class="content">
+				          <div class="center">
+				            <div class="ui inverted button">Dive In</div>
+				          </div>
+				        </div>
+						   </div>
+						   <img  src="{% static 'fusion/img/zlatan.jpg' %}"style="height:40em;width:30em">
+						 </div>
+						 <div class="content">
+							 <a class="header">Live Contests</a>
+							 <div class="meta">
+						   <span class="date">Create in Sep 2014</span>
+						 </div>
+					 </div>
+					 <div class="extra content">
+						 <a>
+						 		<i class="users icon"></i>
+						 		2 Members
+						 </a>
+					 </div>
+				 </div>
+				 <div class="span3 wow bounceInDown center" style="margin:5em;height:50em;width:30em">
+					 <div class="blurring dimmable image"style="height:40em">
+						 <div class="ui dimmer">
+							 <div class="content">
+								 <div class="center">
+									 <div class="ui inverted button">Dive In</div>
+								 </div>
+					     </div>
+						 </div>
+						 <img  src="{% static 'fusion/img/zlatan.jpg' %}"style="height:40em;width:30em">
+					 </div>
+			     <div class="content">
+						 <a class="header">What You Missed?</a>
+				     <div class="meta">
+							 <span class="date">Create in Sep 2014</span>
+				     </div>
+					 </div>
+			     <div class="extra content">
+						 <a>
+							 <i class="users icon"></i>
+							 2 Members
+						 </a>
+					 </div>
+				 </div>
+				 <div class="span3 wow bounceInRight" style="margin:5em;height:50em;width:30em">
+					 <div class="blurring dimmable image" style="height:40em">
+						 <div class="ui dimmer">
+							 <div class="content">
+								 <div class="center">
+									 <div class="ui inverted button">Dive In</div>
+								 </div>
+							 </div>
+						 </div>
+						 <img  src="{% static 'fusion/img/zlatan.jpg' %}" style="height:40em;width:30em">
+					 </div>
+					 <div class="content">
+						 <a class="header">What's ahead?</a>
+						 <div class="meta">
+							 <span class="date">Create in Sep 2014</span>
+				     </div>
+					 </div>
+					 <div class="extra content">
+						 <a>
+							 <i class="users icon"></i>
+				       2 Members
+						 </a>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+	 </div>
 
 
-			<script>
-			$(document).ready(function(){
-            $('.ui.accordion').accordion('refresh');
 
-        });
-				$('#signupdivert').click(function(e){
-					$('#loginblock').css({'display':'none'});
-					$('#signupblock').css({'display': 'block'});
-				});
-				$('#logindivert').click(function(e){
-					$('#loginblock').css({'display':'block'});
-					$('#signupblock').css({'display': 'none'});
-				});
-				$('.ui.sidebar')
-						.sidebar('attach events', '#navbar #sidebartrigger')
-						// .sidebar('setting', 'transition', 'overlay')
-						// .sidebar('toggle')
-				;
-				$('.special.cards .image').dimmer({
-				  on: 'hover'
-				});
-			</script>
+		<script>
+		$(document).ready(function(){
+		      $('.ui.accordion').accordion('refresh');
+
+		  });
+			$('#signupdivert').click(function(e){
+				$('#loginblock').css({'display':'none'});
+				$('#signupblock').css({'display': 'block'});
+			});
+			$('#logindivert').click(function(e){
+				$('#loginblock').css({'display':'block'});
+				$('#signupblock').css({'display': 'none'});
+			});
+			$('.ui.sidebar')
+					.sidebar('attach events', '#navbar #sidebartrigger')
+					// .sidebar('setting', 'transition', 'overlay')
+					// .sidebar('toggle')
+			;
+			$('.special.cards .image').dimmer({
+			  on: 'hover'
+			});
+		</script>
 
 	</body>
 </html>

@@ -9,17 +9,23 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from crypto.decorators import login_required
+# from django.views.decorators.cache import cache_control
 
 def base(request):
     print "base"
     return render(request,'crypto/base.html')
 
-
+# @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
 def index(request,uname):
     print "index"
-    return render(request,'crypto/index.html')
 
+    return render(request,'crypto/base.html')
+
+@login_required
+def create_contest(request):
+
+    return render(request,'crypto/create_contest.html')
 
 def signup(request):
     print request.POST.get('username'),"l"

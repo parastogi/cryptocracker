@@ -1,0 +1,93 @@
+{% load static %}
+
+{% block login_signup %}
+<!-- login -->
+<div class="ui piled segment right floated six wide column " id="loginblock" style="height:52em;padding-top:15em;padding-left:7em;padding-right:7em;display:block">
+  <div class="ui middle aligned center aligned grid">
+    <div class="column">
+      <h2 class="ui teal image header">
+      <img src="{% static 'crypto/logo2.png' %}" class="image">
+      <div class="center content">
+        Log-in to your account
+      </div>
+      </h2>
+      <form class="ui large form" action="/	login/" method="post">
+        {% csrf_token %}
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" class="col s6 validate" name="username" required placeholder="username">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password" class="col s6 validate" required placeholder="Password">
+            </div>
+          </div>
+          <button type="submit" style="margin-top:30px"class= "ui fluid large teal button">Login</button>
+        </div>
+        <div class="ui error message"></div>
+      </form>
+      <div class="ui message">
+        New to us? <a id="signupdivert">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- signup -->
+<div class="ui piled segment right floated six wide column " id="signupblock" style="height:52em;padding-top:8em;padding-left:7em;padding-right:7em;display:none">
+  <div class="ui middle aligned center aligned grid">
+    <div class="column">
+      <h2 class="ui teal image header">
+      <img src="{% static 'crypto/logo2.png' %}" class="image">
+      <div class="center content">
+        Make a new account account
+      </div>
+      </h2>
+      <form class="ui large form" action="signup/" method="post">
+        {% csrf_token %}
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" class="col s6 validate" name="username" required placeholder="username">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" class="col s5 validate "  name="roll" required placeholder="Roll No">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="mail icon"></i>
+              <input type="email" name="email" class="col s4 validate" required placeholder="email">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="phone icon"></i>
+              <input type="number" name="ph_no" class="col s4 validate" required placeholder="Phone No.">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password" class="col s6 validate" required placeholder="Password">
+            </div>
+          </div>
+          <!-- <div class="ui fluid large teal submit button">Signup</div> -->
+          <button class="ui fluid large teal button" type="submit">Signup</button>
+        </div>
+        <div class="ui error message"></div>
+      </form>
+      <div class="ui message">
+        Already have an account?<a id="logindivert">Log In</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
