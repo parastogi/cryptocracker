@@ -26,8 +26,9 @@ SECRET_KEY = 'c0lir@4yfg037%jk)$861&%jlwwnjj4^(-ud3_#8%jl$gt0_r3'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 1800
 # Application definition
 
 INSTALLED_APPS = [

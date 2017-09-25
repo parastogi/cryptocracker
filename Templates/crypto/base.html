@@ -11,14 +11,14 @@
 		<meta name="keywords" content="header, canvas, animated, creative, inspiration, javascript" />
 		<meta name="author" content="Codrops" />
 		<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-		<link rel="stylesheet" type="text/css" href="{% static 'fusion/semantic-ui/components/reset.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'fusion/semantic-ui/components/icon.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'fusion/css/semantic.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/reset.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/icon.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/css/semantic.min.css' %}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 		<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
-		<script type="text/javascript" src="{% static 'fusion/js/semantic.min.js' %}"></script>
-		<script type="text/javascript" src="{% static 'fusion/js/dropdown.js' %}"></script>
+		<script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'crypto/js/dropdown.js' %}"></script>
 		<script>
     	new WOW().init();
     </script>
@@ -60,7 +60,7 @@
 				          </div>
 				        </div>
 						   </div>
-						   <img  src="{% static 'fusion/img/zlatan.jpg' %}"style="height:40em;width:30em">
+						   <img  src="{% static 'crypto/img/zlatan.jpg' %}"style="height:40em;width:30em">
 						 </div>
 						 <div class="content">
 							 <a class="header">Live Contests</a>
@@ -84,7 +84,7 @@
 								 </div>
 					     </div>
 						 </div>
-						 <img  src="{% static 'fusion/img/zlatan.jpg' %}"style="height:40em;width:30em">
+						 <img  src="{% static 'crypto/img/zlatan.jpg' %}"style="height:40em;width:30em">
 					 </div>
 			     <div class="content">
 						 <a class="header">What You Missed?</a>
@@ -108,7 +108,7 @@
 								 </div>
 							 </div>
 						 </div>
-						 <img  src="{% static 'fusion/img/zlatan.jpg' %}" style="height:40em;width:30em">
+						 <img  src="{% static 'crypto/img/zlatan.jpg' %}" style="height:40em;width:30em">
 					 </div>
 					 <div class="content">
 						 <a class="header">What's ahead?</a>
@@ -127,8 +127,11 @@
 		 </div>
 	 </div>
 
-
-
+	 {% if user.is_authenticated %}
+	 <!-- logging out if no action for 30 minutes -->
+	 <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
+	 <!-- disabling going back from the index page when logged in -->
+	 {% endif %}
 		<script>
 		$(document).ready(function(){
 		      $('.ui.accordion').accordion('refresh');
@@ -150,6 +153,8 @@
 			$('.special.cards .image').dimmer({
 			  on: 'hover'
 			});
+
+
 		</script>
 
 	</body>

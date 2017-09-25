@@ -19,7 +19,6 @@ def base(request):
 @login_required
 def index(request,uname):
     print "index"
-
     return render(request,'crypto/base.html')
 
 @login_required
