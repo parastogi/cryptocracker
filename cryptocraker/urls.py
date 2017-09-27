@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^signup/',views.signup,name='signup'),
     url(r'^login/',views.loginm,name='loginm'),
     url(r'^logout/',views.logoutm,name='logoutm'),
-    url(r'^create_contest/',views.create_contest,name='create_contest'),
+    # url(r'^create_contest/',views.create_contest,name='create_contest'),
     url(r'^(?P<uname>)[A-z]+/$',views.index,name='index'),
 ]

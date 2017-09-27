@@ -9,7 +9,7 @@ class Contests(models.Model):
     question_count=models.IntegerField(default=0)
     penalty=models.IntegerField(default=0)
     start_time=models.DateTimeField()
-    duration=models.DateTimeField()
+    duration=models.DurationField()
     total_score=models.IntegerField(default=0)
 
 class Questions(models.Model):

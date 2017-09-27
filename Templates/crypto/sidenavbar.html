@@ -9,12 +9,12 @@
         {% comment %}The User Item starts here!{% endcomment %}
         {% if user.is_authenticated %}
         <div class="ui inverted centered raised item">
-        		<img src="{% static 'fusion/img/zlatan.jpg' %}" class="ui small circular centered image">
-        		<br>
-        		<div class="ui bottom attached inverted" style="text-align: center;">
-        				<h2 class="ui inverted header">{{user.username}}</h2>
-        				<!-- <span class="ui inverted meta">Associate Professor</span> -->
-        		</div>
+            <img src="{% static 'crypto/img/zlatan.jpg' %}" class="ui small circular centered image">
+            <br>
+            <div class="ui bottom attached inverted" style="text-align: center;">
+                <h2 class="ui inverted header">{{user.username}}</h2>
+                <!-- <span class="ui inverted meta">Associate Professor</span> -->
+            </div>
         </div>
         {% endif %}
         {% comment %}The User Item ends here!{% endcomment %}
@@ -50,7 +50,7 @@
         {% comment %}The Modules Accordian ends here!{% endcomment %}
 
         {% comment %}The email Item starts here!{% endcomment %}
-        <a class="centered raised item" href="/create_contest">
+        <a class="centered raised item" href="/quiz/create_contest">
             <span class="inverted header">Create Contests</span>
             <i class="large inverted mail icon right floated"></i>
         </a>

@@ -5,11 +5,15 @@ from crypto.models import Profile
 from django.views import generic
 from django.views.generic.edit import CreateView
 from django.shortcuts import redirect
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from crypto.decorators import login_required
+from quiz.forms import ContestForm
+
 # from django.views.decorators.cache import cache_control
+login_error=0
 
 def base(request):
     print "base"
@@ -19,12 +23,8 @@ def base(request):
 @login_required
 def index(request,uname):
     print "index"
-    return render(request,'crypto/base.html')
+    return render(request,'crypto/index.html')
 
-@login_required
-def create_contest(request):
-
-    return render(request,'crypto/create_contest.html')
 
 def signup(request):
     print request.POST.get('username'),"l"
@@ -39,8 +39,12 @@ def signup(request):
 def loginm(request):
     print "1"
     print request.POST.get('username'),request.POST.get('password')
-
-    user=User.objects.get(username=request.POST.get('username'))
+    try:
+        user=User.objects.get(username=request.POST.get('username'))
+    except:
+        error_msg="Wrong credentials"
+        messages.error(request,error_msg)
+        return redirect('/')
     print user.username,user.password
     user = authenticate(request, username=user.username, password=request.POST.get('password'))
     print user

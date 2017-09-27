@@ -24,6 +24,9 @@
     </script>
 
 		<style>
+		.fortoma_img{
+			width:200em;
+		}
 		</style>
 	</head>
 	<body>
@@ -38,17 +41,13 @@
 			{% block navbar %}
 			{% endblock %}
 			<div class="ui grid" style="padding-top:15em">
-				<div class="ui row"style="margin-left:2em;margin-right:3em;margin-bottom:10em	">
-					<div class="ui inverted vertical masthead nine wide column " id="divcontent">
-						<div class="fotorama "data-width="100%" data-height="50em">
-						  <img src="{% static 'crypto/img/quiz.jpg' %}">
-						  <img src="{% static 'crypto/img/quotes2.jpg' %}">
+				<div class="ui row"style="margin-left:10em;margin-right:10em;margin-bottom:10em	">
+					<div class="ui inverted vertical masthead sixteen wide column " id="divcontent">
+						<div class="fotorama " data-width="150%" data-height="70%">
+						  <img class="fotorama_img" src="{% static 'crypto/img/quiz.jpg' %}">
+						  <img class="fotorama_img"src="{% static 'crypto/img/quotes2.jpg' %}">
 						</div>
 					</div>
-					{% include "crypto/login_signup.html" %}
-
-					{% block login_signup %}
-					{% endblock %}
 				</div>
 				<div class="ui special cards" style="margin-left:10em;margin-top:10em;margin-bottom:10em;">
 				  <div class="span3 wow bounceInLeft" style="margin:5em;height:50em;width:30em">
@@ -80,7 +79,7 @@
 						 <div class="ui dimmer">
 							 <div class="content">
 								 <div class="center">
-									 <a class="ui inverted button"href="/quiz/past">Dive In</a>
+									 <div class="ui inverted button">Dive In</div>
 								 </div>
 					     </div>
 						 </div>
@@ -104,7 +103,7 @@
 						 <div class="ui dimmer">
 							 <div class="content">
 								 <div class="center">
-									 <a class="ui inverted button "href="/quiz/future">Dive In</a>
+									 <div class="ui inverted button">Dive In</div>
 								 </div>
 							 </div>
 						 </div>
@@ -127,35 +126,43 @@
 		 </div>
 	 </div>
 	 {% if user.is_authenticated %}
-	  <script type="text/javascript">
-	  	location.href="/{{ user.username }}"
-	  </script>
+	 <!-- logging out if no action for 30 minutes -->
+	 <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
+	 <!-- disabling going back from the index page when logged in -->
+   <script type="text/javascript">
+   $(document).ready(function() {
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function() {
+            window.history.pushState(null, "", window.location.href);
+        };
+    });
+   </script>
+
 	 {% endif %}
-		<script>
-		$(document).ready(function(){
-		  $('.ui.accordion').accordion('refresh');
+   <script>
+   $(document).ready(function(){
+     $('.ui.accordion').accordion('refresh');
 
-		  });
-			$('#signupdivert').click(function(e){
-				$('#loginblock').css({'display':'none'});
-				$('#signupblock').css({'display': 'block'});
-			});
-			$('#logindivert').click(function(e){
-				$('#loginblock').css({'display':'block'});
-				$('#signupblock').css({'display': 'none'});
-			});
-			$('.ui.sidebar')
-					.sidebar('attach events', '#navbar #sidebartrigger')
-					// .sidebar('setting', 'transition', 'overlay')
-					// .sidebar('toggle')
-			;
-			$('.special.cards .image').dimmer({
-			  on: 'hover'
-			});
+     });
+     $('#signupdivert').click(function(e){
+       $('#loginblock').css({'display':'none'});
+       $('#signupblock').css({'display': 'block'});
+     });
+     $('#logindivert').click(function(e){
+       $('#loginblock').css({'display':'block'});
+       $('#signupblock').css({'display': 'none'});
+     });
+     $('.ui.sidebar')
+         .sidebar('attach events', '#navbar #sidebartrigger')
+         // .sidebar('setting', 'transition', 'overlay')
+         // .sidebar('toggle')
+     ;
+     $('.special.cards .image').dimmer({
+       on: 'hover'
+     });
 
-			$('li.error').parent().parent().css('background-color','#ff5252');
 
-		</script>
+   </script>
 
-	</body>
+ </body>
 </html>

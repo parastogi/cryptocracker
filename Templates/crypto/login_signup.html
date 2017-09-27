@@ -3,7 +3,17 @@
 {% block login_signup %}
 <!-- login -->
 <div class="ui piled segment right floated six wide column " id="loginblock" style="height:52em;padding-top:15em;padding-left:7em;padding-right:7em;display:block">
+  {% if messages %}
+    <div style="width:fit-contnet;border:1px black solid;border-radius:10px;margin-bottom:20px" >
+      <div style="margin-left:100px;padding-top:20px;padding-bottom:20px">
+          {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>{{ message }}<strong></li>
+          {% endfor %}
+      </div>
+    </div>
+  {% endif %}
   <div class="ui middle aligned center aligned grid">
+
     <div class="column">
       <h2 class="ui teal image header">
       <img src="{% static 'crypto/logo2.png' %}" class="image">

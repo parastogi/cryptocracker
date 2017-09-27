@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/icon.css' %}">
+    <script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.js"></script>
+
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div>
+      {% include "crypto/sidenavbar.html" %}
+
+      {% block sidenav %}
+      {% endblock %}
+    		<div>
+    			{% include 'crypto/navbar.html' %}
+    			{% block navbar %}
+    			{% endblock %}
+
+
+          <div class="ui piled segment" style="margin-top:10em;margin-left:10em;margin-right:10em;padding:10em">
+
+            <form class="ui large form"action="/your-name/" method="post">
+                {% csrf_token %}
+
+                <br/>
+                <h4 class="ui dividing header">Contest Details</h4>
+                <div class="field">
+                  <label>Contest</label>
+                  <div class=" two fields">
+                    <div class="field">
+                      <div class="ui input left icon">
+                        <i class="id card outline icon"></i>
+                        {{ form.name }}
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui input left icon">
+                        <i class="id card outline icon"></i>
+                        {{ form.cid }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Type of Contest</label>
+                  <div class="ui input left icon">
+                      {{ form.ctype }}
+                  </div>
+                </div>
+
+                <div class="ui calendar field" id='example2' >
+                  <label>Start Date</label>
+                  <div class="ui input left icon">
+                      <i class="calendar icon"></i>
+                    {{ form.startdate }}
+                  </div>
+                </div>
+                <div class="ui calendar field" id='example3'>
+                  <label>Duration</label>
+                   <div class="ui input left icon">
+                     <i class="time icon"></i>
+                     {{ form.duration }}
+                   </div>
+                 </div>
+
+                <input type="submit"  class="ui button"value="Submit" />
+            </form>
+          </div>
+        </div>
+    </div>
+    <script>
+    $('#example2').calendar({
+    type: 'date'
+    });
+    $('#example3').calendar({
+    type: 'time'
+    });
+
+    </script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.ui.accordion').accordion('refresh');
+
+      });
+    $('.ui.sidebar')
+        .sidebar('attach events', '#navbar #sidebartrigger')
+        // .sidebar('setting', 'transition', 'overlay')
+        // .sidebar('toggle')
+    ;
+    $('.special.cards .image').dimmer({
+      on: 'hover'
+    });
+    </script>
+  </body>
+</html>
