@@ -77,6 +77,20 @@
           </div>
         </div>
     </div>
+    {% if user.is_authenticated %}
+ 	 <!-- logging out if no action for 30 minutes -->
+ 	 <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
+ 	 <!-- disabling going back from the index page when logged in -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+         window.history.pushState(null, "", window.location.href);
+         window.onpopstate = function() {
+             window.history.pushState(null, "", window.location.href);
+         };
+     });
+    </script>
+
+ 	 {% endif %}
     <script>
     $('#example2').calendar({
     type: 'date'

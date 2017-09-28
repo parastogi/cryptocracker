@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    {% load static %}
+
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>CryptoCraker</title>
+		<meta name="description" content="Examples for creative website header animations using Canvas and JavaScript" />
+		<meta name="keywords" content="header, canvas, animated, creative, inspiration, javascript" />
+		<meta name="author" content="Codrops" />
+		<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/reset.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/icon.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/css/semantic.min.css' %}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+		<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
+		<script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'crypto/js/dropdown.js' %}"></script>
+		<style>
+		</style>
+	</head>
+	<body>
+
+		{% include "crypto/sidenavbar.html" %}
+
+		{% block sidenav %}
+		{% endblock %}
+
+		<div>
+			{% include 'crypto/navbar.html' %}
+			{% block navbar %}
+			{% endblock %}
+			<div class="ui container" style="padding-top:15em;width:300em">
+        <div class="ui piled segment " style="margin:10em;padding:10em">
+          <form class="ui large form" action="/admin-form/" method="post" id="admin-form">
+              {% csrf_token %}
+              <table class="ui compact celled definition table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Roll Number</th>
+                    <th>Name</th>
+                    <th>E-mail address</th>
+                    <th>Phone</th>
+                    <th>Is Admin?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for u in users %}
+                  <tr>
+                    <td class="collapsing">
+                      <div class="ui fitted slider checkbox ">
+                        <input type="checkbox" name="isadmin" value="{{u.user.id}}"> <label></label>
+                      </div>
+                    </td>
+                    <td>{{u.roll}}</td>
+                    <td><span>{{u.user.first_name}} {{user.last_name}}</span></td>
+                    <td>{{u.user.email}}</td>
+                    <td>{{u.phone}}</td>
+                    <td>{% if u.is_admin %}Yes{% else %}No {% endif %}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <input type="submit"  class="ui button right floated"  value="Submit" />
+            </form>
+
+
+        </div>
+		 </div>
+	 </div>
+	 {% if user.is_authenticated %}
+	 <!-- logging out if no action for 30 minutes -->
+	 <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
+	 <!-- disabling going back from the index page when logged in -->
+   <script type="text/javascript">
+   $(document).ready(function() {
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function() {
+            window.history.pushState(null, "", window.location.href);
+        };
+    });
+   </script>
+
+	 {% endif %}
+   <script>
+   $(document).ready(function(){
+     $('.ui.accordion').accordion('refresh');
+
+     });
+     $('#signupdivert').click(function(e){
+       $('#loginblock').css({'display':'none'});
+       $('#signupblock').css({'display': 'block'});
+     });
+     $('#logindivert').click(function(e){
+       $('#loginblock').css({'display':'block'});
+       $('#signupblock').css({'display': 'none'});
+     });
+     $('.ui.sidebar')
+         .sidebar('attach events', '#navbar #sidebartrigger')
+         // .sidebar('setting', 'transition', 'overlay')
+         // .sidebar('toggle')
+     ;
+     $('.special.cards .image').dimmer({
+       on: 'hover'
+     });
+
+
+   </script>
+ </body>
+</html>

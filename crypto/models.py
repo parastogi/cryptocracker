@@ -9,4 +9,4 @@ class Profile(models.Model):
     user=models.OneToOneField(User)
     roll=models.IntegerField()
     phone=models.CharField(max_length=12)
-    is_admin=models.ForeignKey(Contests,on_delete=models.CASCADE,blank=True,null=True)
+    is_admin=models.BooleanField(blank=True,default=False)

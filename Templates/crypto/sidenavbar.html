@@ -48,7 +48,12 @@
             </div>
         </div>
         {% comment %}The Modules Accordian ends here!{% endcomment %}
-
+        {% if user.is_superuser %}
+        <a class="centered raised item" href="/make_admin">
+            <span class="inverted header">Appoint Admin</span>
+            <i class="large inverted child icon right floated"></i>
+        </a>
+        {% endif %}
         {% comment %}The email Item starts here!{% endcomment %}
         <a class="centered raised item" href="/quiz/create_contest">
             <span class="inverted header">Create Contests</span>
