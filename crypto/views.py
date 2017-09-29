@@ -23,14 +23,16 @@ def base(request):
 @login_required
 def index(request,uname):
     print "index"
-    return render(request,'crypto/index.html')
+    profile=Profile.objects.get(user=request.user)
+    return render(request,'crypto/index.html',{'profile':profile})
 
 @login_required
 def make_admin(request):
     user=request.user
     if user.is_superuser:
         all_users=Profile.objects.all()
-        return render(request,'crypto/make_admin.html',{'users':all_users})
+        profile=Profile.objects.get(user=request.user)
+        return render(request,'crypto/make_admin.html',{'users':all_users,'profile':profile})
     else:
         messages.error(request,"You are not a super user!!")
         return redirect('/')

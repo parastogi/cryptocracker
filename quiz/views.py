@@ -4,6 +4,7 @@ from django.shortcuts import render
 from .forms import ContestForm
 from django.http import HttpResponse
 from crypto.decorators import login_required
+from crypto.models import Profile
 # Create your views here.
 def past (request):
     return render(request,'quiz/past.html')
@@ -16,13 +17,14 @@ def future (request):
 
 @login_required
 def create_contest(request):
+    profile=Profile.objects.get(user=request.user)
     if request.method == 'POST':
         form = ContestForm(request.POST)
         if form.is_valid():
 
             return HttpResponse('Filled completely')
-
+            
     else:
         form = ContestForm()
 
-    return render(request, 'crypto/create_contest.html', {'form': form})
+    return render(request, 'crypto/create_contest.html', {'form': form,'profile':profile})

@@ -4,24 +4,37 @@ from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_control
 
 class Contests(models.Model):
+    contest_admin=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     contest_name=models.CharField(max_length=100)
     description=models.CharField(max_length=500)
     question_count=models.IntegerField(default=0)
     penalty=models.IntegerField(default=0)
     start_time=models.DateTimeField()
-    duration=models.DurationField()
+    end_time=models.DateTimeField(null=True)
     total_score=models.IntegerField(default=0)
 
 class Questions(models.Model):
     contest_id=models.ForeignKey(Contests,on_delete=models.CASCADE)
-    u_id=models.ForeignKey(User,on_delete=models.CASCADE)
-    problem_id=models.CharField(max_length=50)
     problem_statement=models.CharField(max_length=2000)
     answer=models.CharField(max_length=1000)
     announcement=models.CharField(max_length=2000)
     score=models.IntegerField(default=0)
-    attempts=models.IntegerField(default=0)
-    wrong=models.IntegerField(default=0)
+
+class solution(models.Model):
+    q_id=models.ForeignKey(Questions,on_delete=models.CASCADE)
+    option=models.CharField(max_length=1000)
+
+STATUS=(
+('C','Correct'),
+('W','Wrong')
+)
+
+class leaderboard(models.Model):
+    c_id=models.ForeignKey(Contests,on_delete=models.CASCADE)
+    q_id=models.ForeignKey(Questions,on_delete=models.CASCADE)
+    u_id=models.ForeignKey(User,on_delete=models.CASCADE)
+    attempts=models.IntegerField(null=True)
+    status=models.CharField(max_length=10,choices=STATUS)
 
 
 class Registrations(models.Model):

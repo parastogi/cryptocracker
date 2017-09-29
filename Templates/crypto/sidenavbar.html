@@ -54,13 +54,14 @@
             <i class="large inverted child icon right floated"></i>
         </a>
         {% endif %}
+          {% if profile.is_admin %}
         {% comment %}The email Item starts here!{% endcomment %}
         <a class="centered raised item" href="/quiz/create_contest">
             <span class="inverted header">Create Contests</span>
             <i class="large inverted mail icon right floated"></i>
         </a>
         {% comment %}The email Item ends here!{% endcomment %}
-
+        {% endif %}
         {% comment %}The Webpage Item starts here!{% endcomment %}
         <div class="centered raised item">
             <span class="inverted header">Webpage</span>
