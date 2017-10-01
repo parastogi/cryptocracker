@@ -7,14 +7,19 @@ class Contests(models.Model):
     contest_admin=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     contest_name=models.CharField(max_length=100)
     description=models.CharField(max_length=500)
+    rules=models.CharField(max_length=200,default="Some rules")
     question_count=models.IntegerField(default=0)
     penalty=models.IntegerField(default=0)
+    duration=models.TimeField(null=True)
     start_time=models.DateTimeField()
     d_day=models.CharField(max_length=2,null=True)
     d_hour=models.CharField(max_length=2,null=True)
     d_minute=models.CharField(max_length=2,null=True)
     total_score=models.IntegerField(default=0)
     contestants=models.IntegerField(null=True)
+    def __str__(self):
+        return self.contest_name & self.description & self.duration & self.start_time & self.rules
+
 
 class Questions(models.Model):
     contest_id=models.ForeignKey(Contests,on_delete=models.CASCADE)

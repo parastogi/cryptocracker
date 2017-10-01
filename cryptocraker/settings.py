@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'cryptocraker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cryptocracker',
+        'NAME': 'cryptocracker2',
         'USER':'root',
-        'PASSWORD':'toor',
+        'PASSWORD':'1',
         'HOST':'localhost',
     }
 }
@@ -120,7 +120,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 
 # Static files (CSS, JavaScript, Images)

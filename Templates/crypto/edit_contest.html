@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/icon.css' %}">
+    <script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.js"></script>
+
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div>
+          {% include 'crypto/sidenavbar.html' %}
+          {% block sidenav %}
+          {% endblock %}
+    		<div>
+    			{% include 'crypto/navbar.html' %}
+    			{% block navbar %}
+    			{% endblock %}
+  </div>
+  </div>
+    <div class="ui piled segment" style="margin-top:10em;margin-left:10em;margin-right:10em;padding:10em">
+          <B>
+          <Center> <H1>Contest Name:{{ cname }}</H1>  </Center>
+          </br>Starttime:{{startdatetime}}
+        </br>EndTime:{{endtime}}
+            <h2>Contest Description:{{description}}</h2>
+            <H2>Rules:{{rules}}</h2?
+
+
+          </B>
+          <div>
+
+    {% if user.is_authenticated %}
+ 	 <!-- logging out if no action for 30 minutes -->
+ 	 <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
+ 	 <!-- disabling going back from the index page when logged in -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+         window.history.pushState(null, "", window.location.href);
+         window.onpopstate = function() {
+             window.history.pushState(null, "", window.location.href);
+         };
+     });
+    </script>
+
+ 	 {% endif %}
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.ui.accordion').accordion('refresh');
+
+      });
+    $('.ui.sidebar')
+        .sidebar('attach events', '#navbar #sidebartrigger')
+        // .sidebar('setting', 'transition', 'overlay')
+        // .sidebar('toggle')
+    ;
+    $('.special.cards .image').dimmer({
+      on: 'hover'
+    });
+    </script>
+  </body>
+</html>
