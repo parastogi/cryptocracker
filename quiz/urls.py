@@ -7,4 +7,6 @@ urlpatterns = [
         url(r'^live$',views.live,name="live"),
         url(r'^create_contest$',views.create_contest,name="create_contest"),
         url(r'^past/(?P<hello>[0-9]+)/$',views.past_contest,name='past_contest'),
+        url(r'^edit_contest/(?P<contest_id>[0-9]+)$',views.edit_contest, name='edit_contest')
+
 ]

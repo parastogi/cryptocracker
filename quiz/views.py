@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from crypto.decorators import login_required
 from crypto.models import Profile
 from .models import Contests
+from datetime import datetime, date ,time
+from django.shortcuts import redirect
 from django.utils import timezone
 # Create your views here.
 
@@ -30,14 +32,42 @@ def future (request):
 
 @login_required
 def create_contest(request):
-    profile=Profile.objects.get(user=request.user)
-    if request.method == 'POST':
-        form = ContestForm(request.POST)
-        if form.is_valid():
+    form = ContestForm(request.POST or None)
+    errors=None
+    if form.is_valid():
+        print "yes"
+        st_time=form.cleaned_data['starttime']
+        k1=st_time.hour
+        k2=st_time.minute
+        k3=st_time.second
+        date=datetime.combine(form.cleaned_data['startdate'],time(k1,k2,k3))
+        obj=Contests.objects.create(
+            contest_name=form.cleaned_data['name'],
+            description=form.cleaned_data['description'],
+            rules=form.cleaned_data['rules'],
+            penalty=form.cleaned_data['enable_negative'],
+            start_time=date,
+            duration=form.cleaned_data['duration']
+            )
+        print "Done"
+        return redirect('/quiz/'+'edit_contest/'+str(obj.pk))
+        '''except:
+            return HttpResponse('Unexpected Error')'''
+    if form.errors:
+        errors=form.errors
+    return render(request, 'crypto/create_contest.html', {'form': form,'errors':errors})
 
-            return HttpResponse('Filled completely')
-
-    else:
-        form = ContestForm()
-
-    return render(request, 'crypto/create_contest.html', {'form': form,'profile':profile})
+def edit_contest(request,contest_id):
+    print "YO"
+    obj=Contests.objects.get(pk=contest_id)
+    st=obj.start_time
+    dur=obj.duration
+    print st,dur
+    q1=dur.hour
+    q2=dur.minute
+    q3=dur.second
+    print q1,q2,q3
+    end_time=datetime.combine(st,time(q1,q2,q3));
+    print end_time
+    parm={'cname':obj.contest_name,'description':obj.description,'rules':obj.rules,'startdatetime':st,'endtime':end_time}
+    return render(request, 'crypto/edit_contest.html',parm)
