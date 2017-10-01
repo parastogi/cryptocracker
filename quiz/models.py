@@ -10,8 +10,11 @@ class Contests(models.Model):
     question_count=models.IntegerField(default=0)
     penalty=models.IntegerField(default=0)
     start_time=models.DateTimeField()
-    end_time=models.DateTimeField(null=True)
+    d_day=models.CharField(max_length=2,null=True)
+    d_hour=models.CharField(max_length=2,null=True)
+    d_minute=models.CharField(max_length=2,null=True)
     total_score=models.IntegerField(default=0)
+    contestants=models.IntegerField(null=True)
 
 class Questions(models.Model):
     contest_id=models.ForeignKey(Contests,on_delete=models.CASCADE)

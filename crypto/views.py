@@ -23,6 +23,7 @@ def base(request):
 @login_required
 def index(request,uname):
     print "index"
+    print uname,"asda"
     profile=Profile.objects.get(user=request.user)
     return render(request,'crypto/index.html',{'profile':profile})
 

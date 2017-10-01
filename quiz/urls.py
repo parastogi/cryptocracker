@@ -5,6 +5,6 @@ urlpatterns = [
         url(r'^past$',views.past,name="past"),
         url(r'^future$',views.future,name="future"),
         url(r'^live$',views.live,name="live"),
-        url(r'^create_contest$',views.create_contest,name="create_contest")
-
+        url(r'^create_contest$',views.create_contest,name="create_contest"),
+        url(r'^past/(?P<hello>[0-9]+)/$',views.past_contest,name='past_contest'),
 ]
