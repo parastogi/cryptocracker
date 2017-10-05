@@ -27,15 +27,237 @@
   </div>
     <div class="ui piled segment" style="margin-top:10em;margin-left:10em;margin-right:10em;padding:10em">
           <B>
-          <Center> <H1>Contest Name:{{ cname }}</H1>  </Center>
-          </br>Starttime:{{startdatetime}}
-        </br>EndTime:{{endtime}}
-            <h2>Contest Description:{{description}}</h2>
-            <H2>Rules:{{rules}}</h2?
+          <Center> <H1>Contest Name:{{ details.cname }}</H1>  </Center>
+        </br>Starttime:{{details.startdatetime}}
+      </br>EndTime:{{details.endtime}}
+            <h2>Contest Description:{{details.description}}</h2>
+            <H2>Rules:{{details.rules}}</h2>
+              <h2>Questions : </h2>
+            </br>
+            {% for k in obj %}
+            <H2>{{obj.problem_statement}}</h2>
+            <H2>{{obj.answer}}</h2>
+            {% endfor %}
+              {% if details.c_type == 0 %}
+                <div class="ui submit button">Add Subjective Type Question</div>
+                                  {% if errors1 %}
+                                  {{errors1}}
+                                  {% endif %}
+
+                                <form class="ui large form" method="post">
+
+                                  {% csrf_token %}
+
+                                  <label>Problem Statement</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                          <i class="comments icon"></i>
+                                        {{ form1.problem_statement }}
+                                      </div>
+                                    </div>
+                                    <label>Upload Image</label>
+
+                                          {{ form1.image }}
+                                    </br>
+                                  <label>Answer</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form1.answer }}
+                                      </div>
+                                </div>
+                                <label>Score</label>
+                                  <div class="field">
+                                    <div class="ui input left icon">
+                                      <i class="percent icon"></i>
+                                      {{ form1.score }}
+                                    </div>
+                              </div>
+              <input type="submit"  class="ui button"value="Submit" />
+            </BR>
+          </BR>
+
+            </form>
+
+              {% elif details.c_type == 1 %}
+              <div class="ui submit button">Add Multiple Type Question</div>
+
+                                      {% if errors2 %}
+                                      {{errors2}}
+                                      {% endif %}
+                              <form class="ui large form" method="post">
+                              {% csrf_token %}
+
+                                <label>Problem Statement</label>
+                                  <div class="field">
+                                    <div class="ui input left icon">
+                                      <i class="comments icon"></i>
+                                      {{ form2.problem_statement }}
+                                    </div>
+                                  </div>
+                                  <label>Upload Image</label>
+
+                                        {{ form2.image }}
+                                  </br>
+                                  <label>Option 1</label>
+                                    <div class="field">
+                                      <div class="ui input left icon">
+                                        <i class="percent icon"></i>
+                                        {{ form2.option1 }}
+                                      </div>
+                                </div>
+                                <label>Option 2</label>
+                                  <div class="field">
+                                    <div class="ui input left icon">
+                                      <i class="percent icon"></i>
+                                      {{ form2.option }}
+                                    </div>
+                              </div>
+                              <label>Option 3</label>
+                                <div class="field">
+                                  <div class="ui input left icon">
+                                    <i class="percent icon"></i>
+                                    {{ form2.option3 }}
+                                  </div>
+                            </div>
+                            <label>Option 4</label>
+                              <div class="field">
+                                <div class="ui input left icon">
+                                  <i class="percent icon"></i>
+                                  {{ form2.option4 }}
+                                </div>
+                          </div>
+
+                                <label>Answer</label>
+                                  <div class="field">
+                                    <div class="ui input left icon">
+                                      <i class="percent icon"></i>
+                                      {{ form2.answer }}
+                                    </div>
+                              </div>
+                              <label>Score</label>
+                                <div class="field">
+                                  <div class="ui input left icon">
+                                    <i class="percent icon"></i>
+                                    {{ form2.score }}
+                                  </div>
+                            </div>
+                              <input type="submit"  class="ui button"value="Submit" />
+                            </form>
+                          </BR>
+                        </BR>
 
 
+              {% else %}
+
+
+                <div class="ui submit button">Add Subjective Type Question</div>
+                                          {% if errors1 %}
+                                          {{errors1}}
+                                          {% endif %}
+
+                                    <form class="ui large form" method="post">
+
+                                                  {% csrf_token %}
+                                      <label>Problem Statement</label>
+                                        <div class="field">
+                                          <div class="ui input left icon">
+                                            <i class="comments icon"></i>
+                                            {{ form1.problem_statement }}
+                                          </div>
+                                        </div>
+                                        <label>Upload Image</label>
+
+                                              {{ form1.image }}
+                                        </br>
+                                      <label>Answer</label>
+                                        <div class="field">
+                                          <div class="ui input left icon">
+                                            <i class="percent icon"></i>
+                                            {{ form1.answer }}
+                                          </div>
+                                    </div>
+                                    <label>Score</label>
+                                      <div class="field">
+                                        <div class="ui input left icon">
+                                          <i class="percent icon"></i>
+                                          {{ form1.score }}
+                                        </div>
+                                  </div>
+                                    <input type="submit"  class="ui button"value="Submit" />
+                                  </form>
+                                </BR>
+                              </BR>
+
+                <div class="ui submit button">Add Multiple Type Question</div>
+                                                {% if errors2 %}
+                                                {{errors2}}
+                                                {% endif %}
+                                            <form class="ui large form" method="post">
+                                            {% csrf_token %}
+
+                                              <label>Problem Statement</label>
+                                                <div class="field">
+                                                  <div class="ui input left icon">
+                                                    <i class="comments icon"></i>
+                                                    {{ form2.problem_statement }}
+                                                  </div>
+                                                </div>
+                                                <label>Upload Image</label>
+
+                                                      {{ form2.image }}
+                                                </br>
+                                                <label>Option 1</label>
+                                                  <div class="field">
+                                                    <div class="ui input left icon">
+                                                      <i class="percent icon"></i>
+                                                      {{ form2.option1 }}
+                                                    </div>
+                                              </div>
+                                              <label>Option 2</label>
+                                                <div class="field">
+                                                  <div class="ui input left icon">
+                                                    <i class="percent icon"></i>
+                                                    {{ form2.option }}
+                                                  </div>
+                                            </div>
+                                            <label>Option 3</label>
+                                              <div class="field">
+                                                <div class="ui input left icon">
+                                                  <i class="percent icon"></i>
+                                                  {{ form2.option3 }}
+                                                </div>
+                                          </div>
+                                          <label>Option 4</label>
+                                            <div class="field">
+                                              <div class="ui input left icon">
+                                                <i class="percent icon"></i>
+                                                {{ form2.option4 }}
+                                              </div>
+                                        </div>
+
+                                              <label>Answer</label>
+                                                <div class="field">
+                                                  <div class="ui input left icon">
+                                                    <i class="percent icon"></i>
+                                                    {{ form2.answer }}
+                                                  </div>
+                                            </div>
+                                            <label>Score</label>
+                                              <div class="field">
+                                                <div class="ui input left icon">
+                                                  <i class="percent icon"></i>
+                                                  {{ form2.score }}
+                                                </div>
+                                          </div>
+                                            <input type="submit"  class="ui button"value="Submit" />
+                                          </form>
+                                        </BR>
+                                      </BR>
+
+              {% endif %}
           </B>
-          <div>
+        </div>
 
     {% if user.is_authenticated %}
  	 <!-- logging out if no action for 30 minutes -->

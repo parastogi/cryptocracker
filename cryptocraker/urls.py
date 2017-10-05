@@ -1,7 +1,9 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from crypto import views
-import settings
+from django.conf.urls.static import static
+from django.conf import settings
+
 app_name='crypto'
 urlpatterns = [
     url(r'^$',views.base,name='base'),
@@ -15,3 +17,6 @@ urlpatterns = [
     # url(r'^create_contest/',views.create_contest,name='create_contest'),
     url(r'^(?P<uname>[A-z]+)/$',views.index,name='index'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

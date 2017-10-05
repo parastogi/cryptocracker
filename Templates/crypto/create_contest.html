@@ -53,7 +53,7 @@
                  <label>Start Date</label>
 
                     {{ form.startdate }}
-</B>
+
                  <div class="ui calendar field" id='example6'>
                    <label>Start Time</label>
                     <div class="ui input left icon">
@@ -61,21 +61,24 @@
                       {{ form.starttime}}
                     </div>
                   </div>
-                 <div class="ui calendar field" id='example7'>
-                   <label>Duration</label>
-                    <div class="ui input left icon">
-                      <i class="hourglass full icon"></i>
-                      {{ form.duration }}
-                    </div>
-                  </div>
-                  <div class="ui calendar field" id='example7'>
+                  <label>End Date</label>
+
+                     {{ form.enddate }}
+                     <div class="ui calendar field" id='example7'>
+                       <label>End Time</label>
+                        <div class="ui input left icon">
+                          <i class="hourglass full icon"></i>
+                          {{ form.endtime}}
+                        </div>
+                      </div></B>
+                  <div class="ui calendar field" >
                     <label>Description</label>
                      <div class="ui input left icon">
                        <i class="comments icon"></i>
                        {{ form.description }}
                      </div>
                    </div>
-                   <div class="ui calendar field" id='example7'>
+                   <div class="ui calendar field">
                      <label>Rules And Regulations</label>
                       <div class="ui input left icon">
                         <i class="comments outline icon"></i>
@@ -126,7 +129,6 @@
     <script type="text/javascript">
     $(document).ready(function(){
       $('.ui.accordion').accordion('refresh');
-
       });
     $('.ui.sidebar')
         .sidebar('attach events', '#navbar #sidebartrigger')
