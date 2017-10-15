@@ -1,89 +1,33 @@
-<html>
-	<head>
-    {% load static %}
+{% load static %}
+{% block timer %}
 
-    <link rel="stylesheet" href="{% static 'crypto/flipclock/flipclock.css' %}">
+<script>
+// Set the date we're counting down to
+// var countDownDate = new Date("Jan 5, 2018 15:37:25").getTime();
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+// Update the count down every 1 second
+var x = setInterval(function() {
 
-    <script type="text/javascript" src="{% static 'crypto/flipclock/flipclock.js' %}"></script>
-  <style media="screen">
-    .clock {
-    width: 100%;
-    height: 60px;
-    margin: 0 auto;
+    // Get todays date and time
+    // var now = new Date().getTime();
+    // Find the distance between now an the count down date
+    // var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(duration / ( 60 * 60 * 24));
+    var hours = Math.floor((duration % ( 60 * 60 * 24)) / (60 * 60));
+    var minutes = Math.floor((duration % ( 60 * 60)) / (60));
+    var seconds = Math.floor((duration % ( 60)));
+
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML = hours + "h "
+    + minutes + "m " + seconds + "s ";
+		duration-=1
+    // If the count down is over, write some text
+    if (duration < 0) {
+        clearInterval(x);
+        alert("Time Expired");
     }
-    .flip-clock-divider {
-      float: left;
-      display: inline-block;
-      position: relative;
-      width: 1%;
-      height: 10px;
-    }
-    .flip-clock-wrapper ul li a div.up:after {
-      content: "";
-      position: absolute;
-      top: 94%;
-      left: 0;
-      z-index: 5;
-      width: 100%;
-      height: 3px;
-      background-color: #000;
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .flip-clock-wrapper ul li a div div.inn {
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      width: 100%;
-      height: 200%;
-      color: #ccc;
-      text-shadow: 0 1px 2px #000;
-      text-align: center;
-      background-color: #333;
-      border-radius: 6px;
-      font-size: 50%; }
-      .flip-clock-wrapper ul {
-      position: relative;
-      float: left;
-
-      width: 10%;
-      height: 100%;
-      font-size:40px;
-      font-weight: bold;
-      border-radius: 6px;
-      background: #000;
-      line-height: 110px;
-    }
-  </style>
-	</head>
-	<body>
-	<div class="clock" style="margin:2em;"></div>
-	<div class="message"></div>
-
-	<script type="text/javascript">
-		var clock;
-
-		$(document).ready(function() {
-			var clock;
-
-			clock = $('.clock').FlipClock({
-		        clockFace: 'DailyCounter',
-		        autoStart: false,
-		        callbacks: {
-		        	stop: function() {
-		        		$('.message').html('The time is OVER!')
-		        	}
-		        }
-		    });
-
-		    clock.setTime(220880);
-		    clock.setCountdown(true);
-		    clock.start();
-
-		});
-	</script>
-
-	</body>
-</html>
+}, 1000);
+</script>
+{% endblock %}

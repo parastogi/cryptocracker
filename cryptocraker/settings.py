@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cryptocracker2',
         'USER':'root',
-        'PASSWORD':'1',
+        'PASSWORD':'toor',
         'HOST':'localhost',
     }
 }

@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_control
-from PIL import Image
+
 class Contests(models.Model):
     contest_admin=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     contest_name=models.CharField(max_length=100)

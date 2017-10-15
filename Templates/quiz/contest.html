@@ -20,6 +20,12 @@
 		<script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
 		<script type="text/javascript" src="{% static 'crypto/js/dropdown.js' %}"></script>
     <meta charset="utf-8">
+    <style media="screen">
+      #demo{
+        text-align: center;
+        font-size: 60px;
+      }
+    </style>
     <title>Past Contests</title>
   </head>
   <body>
@@ -33,29 +39,111 @@
 			{% block navbar %}
 			{% endblock %}
 
-      <div class="ui two column grid" style="padding-top:15em;padding-bottom:15em;padding-left:5em;padding-right:5em">
-        <div class="twelve wide column">
-          <div class="ui piled segment " style="height:100em">
+      <div class="ui two column grid" style="padding-top:10em;padding-bottom:15em;padding-left:5em;padding-right:5em">
+        <div class="twelve wide column" style="height:fit-content">
+          <div class="ui piled segment" >
             <span class="ui"> PAST CONTESTS </span>
             <div class="ui divider">
+            </div>
+
+            <div class="total_question container" style="border:1px solid black;margin:3em">
+              <!-- <div class="question" style="border:1px solid black;margin:2em;height:50em;displ:none">
+
+              </div> -->
+              <div class=" ui grid" style="padding:3em">
+                <div class="image centered fourteen wide column" style="border:1px solid black">
+                  <img src="{% static 'crypto/img/zlatan.jpg' %}" alt="">
+                </div>
+                <div class="question_image centered fourteen wide column" style="border:1px solid black;margin-top:1em;;">
+                  <p>the question is the following line that i am about to type and you have to answer from the options provided below. If you select the correct option the you will get full marks otherwise you will get zero marks. Understand?</p>
+                </div>
+                <div class="answer centered fourteen wide column" style="border:1px solid black;margin-top:1em">
+                  <p>Tere maa ki chut</p><br>
+                  <p>Tere maa ki chut</p><br>
+                  <p>Tere maa ki chut</p><br>
+                  <p>Tere maa ki chut</p><br>
+                </div>
+              </div>
+
+
+            </div>
 
             </div>
           </div>
-        </div>
-        <div class="four wide column">
+        <div class="four wide column" style="">
           <div class="ui piled segment " style="">
             <span class="ui">TIME</span>
             <div class="ui divider">
-              {% include "quiz/timer.html" %}
             </div>
+            {% include "quiz/timer.html" %}
+            <p id="demo"></p>
           </div>
-          <div class="ui piled segment " style="">
+          <div class="ui piled segment " >
             <span class="ui">QUESTIONS</span>
             <div class="ui divider">
+            </div>
+            <div class="ui grid" style="margin-left:5em;margin-right:5em;margin-top:1em">
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>1</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>2</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>3</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>4</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>5</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>6</span></center>
+                </div>
 
+
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>7</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>8</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>9</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>10</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>11</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>12</span></center>
+                </div>
+
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>13</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>14</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>15</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>16</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>17</span></center>
+                </div>
+                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>18</span></center>
+                </div>
             </div>
           </div>
-          <div class="ui piled segment " style="">
+
+          <div class="ui piled segment " style="min-height:20em">
             <span class="ui">ANNUOUNCMENTS</span>
             <div class="ui divider">
 
@@ -69,6 +157,7 @@
     <!-- logging out if no action for 30 minutes -->
     <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
     {% endif %}
+
     <script>
     $(document).ready(function(){
       $('.ui.accordion').accordion('refresh');
@@ -90,9 +179,10 @@
       $('.special.cards .image').dimmer({
         on: 'hover'
       });
-
-
+      var duration= {{contest.d_day}}*86400+{{contest.d_hour}}*3600+{{contest.d_minute}}*60
     </script>
+    {% block timer %}
+    {% endblock %}
 
   </body>
 </html>

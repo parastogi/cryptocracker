@@ -13,7 +13,7 @@ from django.utils import timezone
 
 def past (request):
     past_contest=Contests.objects.filter(start_time__lt=timezone.now())
-    print past_contest
+    # print past_contest
     return render(request,'quiz/past.html',{'past_contest':past_contest})
 
 @login_required
