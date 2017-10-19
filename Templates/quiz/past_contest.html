@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>CryptoCraker</title>
+		<meta name="description" content="Examples for creative website header animations using Canvas and JavaScript" />
+		<meta name="keywords" content="header, canvas, animated, creative, inspiration, javascript" />
+		<meta name="author" content="Codrops" />
+		<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/reset.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/icon.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/css/semantic.min.css' %}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+		<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
+		<script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'crypto/js/dropdown.js' %}"></script>
+    <meta charset="utf-8">
+    <style media="screen">
+      #demo{
+        text-align: center;
+        font-size: 60px;
+      }
+    </style>
+    <title>Past Contests</title>
+  </head>
+  <body>
+    {% include "crypto/sidenavbar.html" %}
+
+		{% block sidenav %}
+		{% endblock %}
+
+		<div>
+			{% include 'crypto/navbar.html' %}
+			{% block navbar %}
+			{% endblock %}
+
+      <div class="ui two column grid" style="padding-top:10em;padding-bottom:15em;padding-left:5em;padding-right:5em">
+        <div class="twelve wide column" style="height:fit-content">
+          <div class="ui piled segment" >
+            <span class="ui"> PAST CONTESTS </span>
+            <div class="ui divider">
+            </div>
+            <div class="total_question container" style="border:1px solid black;margin:3em">
+
+              <div class=" ui grid" style="padding:3em">
+
+                <!-- images -->
+
+
+                <!-- questions -->
+                {% for question in ques %}
+                <div class="centered fourteen wide column questions" data-pk={{question.pk}} data = {{ forloop.counter }}  id="question{{forloop.counter}}" style="display:none">
+                  <div class="image centered fourteen wide column" style="border:1px solid black">
+                    <img src="{{question.image}}" style="width:100%;heightL100%">
+                  </div>
+                  <div class="question_image centered fourteen wide column" style="border:1px solid black;margin-top:1em;padding:2em;">
+                    <p>{{ question.problem_statement }}</p>
+                  </div>
+
+                  <!-- answers -->
+                  <div class="answer centered fourteen wide column" style="border:1px solid black;margin-top:1em;padding:2em">
+
+                    <form class="ui form"  method="post">
+                      {% csrf_token %}
+                      {% if question.options1 %}
+                      <div class="ui radio checkbox" style="margin:2em">
+                        <input type="radio"  name="answer{{question.pk}}" value="1">
+                        <label>{{question.options1}}</label>
+                      </div>
+                      {% endif %}
+                      <br>
+                      {% if question.options2 %}
+                      <div class="ui radio checkbox"style="margin:2em">
+                        <input type="radio"  name="answer{{question.pk}}" value="2">
+                        <label>{{question.options2}}</label>
+                      </div>
+                      {% endif %}
+                      <br>
+                      {% if question.options3 %}
+                      <div class="ui radio checkbox"style="margin:2em">
+                        <input type="radio" name="answer{{question.pk}}" value="3">
+                        <label>{{question.options3}}</label>
+                      </div>
+                      {% endif %}
+                      <br>
+                      {% if question.options4 %}
+                      <div class="ui radio checkbox"style="margin:2em">
+                        <input type="radio" name="answer{{question.pk}}" value="4">
+                        <label>{{question.options4}}</label>
+                      </div>
+                      {% endif %}
+                      <br>
+                      {% if question.options5 %}
+                      <div class="ui radio checkbox"style="margin:2em">
+                        <input type="radio" name="answer{{question.pk}}" value="5">
+                        <label>{{question.options5}}</label>
+                      </div>
+                      {% endif %}
+                      <br>
+                      <!-- <div class="ui button" id="submit">
+
+                      </div> -->
+                      <input type="submit" data-pk={{question.pk}} class="ui button floated submit_bt"  value="Submit" />
+                    </form>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="four wide column" style="">
+          <div class="ui piled segment " style="">
+            <span class="ui">TIME</span>
+            <div class="ui divider">
+            </div>
+            {% include "quiz/timer.html" %}
+            <p id="demo"></p>
+          </div>
+          <div class="ui piled segment " >
+            <span class="ui">QUESTIONS</span>
+            <div class="ui divider">
+            </div>
+            <div class="ui grid" style="margin-left:5em;margin-right:5em;margin-top:1em">
+              {% for question in ques %}
+                <div class="two wide column qt" data={{forloop.counter}} id=qt{{forloop.counter}} data-pk={{question.pk}} style="border:1px solid black;margin-right:10px;margin-bottom:1em">
+                  <center><span>{{forloop.counter}}</span></center>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="ui piled segment " style="min-height:20em">
+            <span class="ui">ANNUOUNCMENTS</span>
+            <div class="ui divider">
+              <div class="ui big list">
+                {% for question in ques %}
+                <div class="item ann" data-pk={{question.pk}} data={{forloop.counter}} id=ann{{forloop.counter}} style="display:none">
+                  <div class="header"></div>
+                      {{question.announcement}}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    <!-- logging out if no action for 30 minutes -->
+    <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
+    {% endif %}
+
+    <script>
+        // changing background color on hovering
+      $('.qt').mouseover(function(){
+        qt=$(this).attr('data');
+        $('#qt'+qt).css({'background':'grey'});
+      });
+      $('.qt').mouseout(function(){
+        qt=$(this).attr('data');
+        $('#qt'+qt).css({'background':'white'});
+      });
+
+      // displying the 1st question initially
+      id = $('.questions').attr('data');
+      $('#question'+id).css({'display':'block'});
+      $('#ann'+id).css({'display':'block'});
+
+      // displaying the corresponding question on click
+      $('.qt').click(function(){
+        qt=$(this).attr('data');
+        $('#question'+id).css({'display':'none'});
+        $('#ann'+id).css({'display':'none'});
+        id=qt;
+        $('#question'+id).css({'display':'block'});
+        $('#ann'+id).css({'display':'block'});
+      });
+
+
+      $(document).ready(function(){
+      $('.ui.accordion').accordion('refresh');
+
+      });
+      $('#signupdivert').click(function(e){
+        $('#loginblock').css({'display':'none'});
+        $('#signupblock').css({'display': 'block'});
+      });
+      $('#logindivert').click(function(e){
+        $('#loginblock').css({'display':'block'});
+        $('#signupblock').css({'display': 'none'});
+      });
+      $('.ui.sidebar')
+          .sidebar('attach events', '#navbar #sidebartrigger')
+          // .sidebar('setting', 'transition', 'overlay')
+          // .sidebar('toggle')
+      ;
+      $('.special.cards .image').dimmer({
+        on: 'hover'
+      });
+      //for timer
+      var duration= {{contest.d_day}}*86400+{{contest.d_hour}}*3600+{{contest.d_minute}}*60;
+    </script>
+
+    {% block timer %}
+    {% endblock %}
+    <script type="text/javascript">
+      //ajax cheking
+      $('.submit_bt').click(function(event){
+        event.preventDefault();
+        pk=$(this).attr('data-pk');
+        var ans = $('input[name=answer'+pk+']:checked').val();
+        var csrf = $('input[name=csrfmiddlewaretoken]').val();
+        alert("pk="+pk+"/nans"+ans);
+        $.ajax({
+          type: 'POST',
+          url:'/quiz/{{contest.pk}}/ajax',
+          data:{ 'question':pk, 'answer': ans, 'csrfmiddlewaretoken':csrf, },
+          success: function(data){
+            alert(data.status);
+          },
+          error: function(data,err){
+            alert(err);
+          },
+        });
+      });
+    </script>
+
+  </body>
+</html>

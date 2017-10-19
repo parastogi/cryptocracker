@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    {% load tz %}
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>CryptoCraker</title>
+		<meta name="description" content="Examples for creative website header animations using Canvas and JavaScript" />
+		<meta name="keywords" content="header, canvas, animated, creative, inspiration, javascript" />
+		<meta name="author" content="Codrops" />
+
+		<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/reset.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/icon.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/css/semantic.min.css' %}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+		<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
+		<script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'crypto/js/dropdown.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <title>live Contests</title>
+  </head>
+  <body>
+    {% include "crypto/sidenavbar.html" %}
+
+		{% block sidenav %}
+		{% endblock %}
+
+		<div>
+			{% include 'crypto/navbar.html' %}
+			{% block navbar %}
+			{% endblock %}
+      <div class="ui piled segment " style="margin:20em;padding:10em">
+        <h1 class="ui center aligned icon header">
+          <i class=" circular file text icon"></i>
+          {{contest.contest_name}}
+        </h1>
+        <div class="ui divider">
+        </div>
+        <div class="ui segment" style="margin-left:4em;margin-right:4em">
+          <form class="ui big gird form" action="/quiz/{{contest.pk}}/registeration/" method="post">
+            {% csrf_token %}
+            <h2 class="ui dividing header" style="margin-bottom:50px">Registration Details</h2>
+
+            <div class="field">
+             <label>Team Name</label>
+             <input type="text" name="teamname" placeholder="Team Name">
+            </div>
+            <select class="selectpicker" name="team" data-width="100%" multiple title="Select other team mates excluding you" multiple data-live-search="true">
+              {% for reg in register %}
+                <option value="{{reg.pk}}">{{reg.username}}</option>
+              {% endfor %}
+            </select>
+
+            <button class="massive ui button" style="margin-top:50px">
+              Register
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    <!-- logging out if no action for 30 minutes -->
+    <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
+    {% endif %}
+    <script>
+
+    $('.selectpicker').selectpicker({
+        style: 'btn-info',
+        size: 4
+      });
+
+    $(document).ready(function(){
+      $('.ui.accordion').accordion('refresh');
+
+      });
+      $('#signupdivert').click(function(e){
+        $('#loginblock').css({'display':'none'});
+        $('#signupblock').css({'display': 'block'});
+      });
+      $('#logindivert').click(function(e){
+        $('#loginblock').css({'display':'block'});
+        $('#signupblock').css({'display': 'none'});
+      });
+      $('.ui.sidebar')
+          .sidebar('attach events', '#navbar #sidebartrigger')
+          // .sidebar('setting', 'transition', 'overlay')
+          // .sidebar('toggle')
+      ;
+      $('.special.cards .image').dimmer({
+        on: 'hover'
+      });
+
+
+    </script>
+
+  </body>
+</html>

@@ -81,14 +81,20 @@
                    <div class="ui calendar field">
                      <label>Rules And Regulations</label>
                       <div class="ui input left icon">
-                        <i class="comments outline icon"></i>
                         {{ form.rules }}
                       </div>
                     </div>
+                    <div class="ui calendar field" >
+                      <label>Prizes</label>
+                       <div class="ui input left icon">
+                         {{ form.prizes }}
+
+                       </div>
+                     </div>
                     <div class="ui checkbox">
                     {{form.enable_negative}}
                       <label>Enable Penalty</label>
-                      </div>
+                    </div>
                     </br></br>
                 <input type="submit"  class="ui button"value="Submit" />
             </form>

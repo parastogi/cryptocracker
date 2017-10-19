@@ -2,7 +2,7 @@
 <html>
   <head>
     {% load static %}
-
+    {% load tz %}
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,13 +20,8 @@
 		<script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
 		<script type="text/javascript" src="{% static 'crypto/js/dropdown.js' %}"></script>
     <meta charset="utf-8">
-    <style media="screen">
-      #demo{
-        text-align: center;
-        font-size: 60px;
-      }
-    </style>
-    <title>Past Contests</title>
+    <title>live Contests</title>
+
   </head>
   <body>
     {% include "crypto/sidenavbar.html" %}
@@ -38,127 +33,249 @@
 			{% include 'crypto/navbar.html' %}
 			{% block navbar %}
 			{% endblock %}
+      <div class="ui piled segment " style="margin:20em;padding:10em">
+        <h1 class="ui center aligned icon header">
+          <i class=" circular file text icon"></i>
+          {{contest.contest_name}}
+        </h1>
+        <div class="ui divider">
+        </div>
 
-      <div class="ui two column grid" style="padding-top:10em;padding-bottom:15em;padding-left:5em;padding-right:5em">
-        <div class="twelve wide column" style="height:fit-content">
-          <div class="ui piled segment" >
-            <span class="ui"> PAST CONTESTS </span>
-            <div class="ui divider">
-            </div>
-
-            <div class="total_question container" style="border:1px solid black;margin:3em">
-              <!-- <div class="question" style="border:1px solid black;margin:2em;height:50em;displ:none">
-
-              </div> -->
-              <div class=" ui grid" style="padding:3em">
-                <div class="image centered fourteen wide column" style="border:1px solid black">
-                  <img src="{% static 'crypto/img/zlatan.jpg' %}" alt="">
+          <div class="ui grid" style="padding-top:1em">
+            <div class="ui huge horizontal list ten wide column" style="padding-top:2em;padding-left:2em;border-right:1px solid black">
+              <div class="item">
+                <div class="content">
+                  <div class="header">Start Time</div>
+                    {{contest.start_time}}
+                  </div>
                 </div>
-                <div class="question_image centered fourteen wide column" style="border:1px solid black;margin-top:1em;;">
-                  <p>the question is the following line that i am about to type and you have to answer from the options provided below. If you select the correct option the you will get full marks otherwise you will get zero marks. Understand?</p>
+                <div class="item">
+                  <div class="content">
+                    <div class="header">Matt</div>
+                    Top Rated User
+                  </div>
                 </div>
-                <div class="answer centered fourteen wide column" style="border:1px solid black;margin-top:1em">
-                  <p>Tere maa ki chut</p><br>
-                  <p>Tere maa ki chut</p><br>
-                  <p>Tere maa ki chut</p><br>
-                  <p>Tere maa ki chut</p><br>
+                <div class="item">
+                  <div class="content">
+                    <div class="header">End Time</div>
+                    {{contest.end_time}}
+                  </div>
                 </div>
               </div>
 
+              <div class="ui modal">
+                <i class="close icon"></i>
+                <div class="header">
+                  Login
+                </div>
+                <div id="loginblock" style="height:52em;padding-top:15em;padding-left:7em;padding-right:7em;display:block">
+                  {% if messages %}
+                    <div style="width:fit-contnet;border:1px black solid;border-radius:10px;margin-bottom:20px" >
+                      <div style="margin-left:100px;padding-top:20px;padding-bottom:20px">
+                          {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>{{ message }}<strong></li>
+                          {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  <div class="ui middle aligned center aligned grid">
+
+                    <div class="column">
+                      <h2 class="ui teal image header">
+                      <img src="{% static 'crypto/logo2.png' %}" class="image">
+                      <div class="center content">
+                        Log-in to your account
+                      </div>
+                      </h2>
+                      <form class="ui large form" action="/	login/" method="post">
+                        {% csrf_token %}
+                        <div class="ui stacked segment">
+                          <div class="field">
+                            <div class="ui left icon input">
+                              <i class="user icon"></i>
+                              <input type="text" class="col s6 validate" name="username" required placeholder="username">
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui left icon input">
+                              <i class="lock icon"></i>
+                              <input type="password" name="password" class="col s6 validate" required placeholder="Password">
+                            </div>
+                          </div>
+                          <button type="submit" style="margin-top:30px"class= "ui fluid large teal button">Login</button>
+                        </div>
+                        <div class="ui error message"></div>
+                      </form>
+                      <div class="ui message">
+                        New to us? <a id="signupdivert">Sign Up</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    <!-- signup -->
+                <div id="signupblock" style="height:52em;padding-top:8em;padding-left:7em;padding-right:7em;display:none">
+                  <div class="ui middle aligned center aligned grid">
+                    <div class="column">
+                      <h2 class="ui teal image header">
+                      <img src="{% static 'crypto/logo2.png' %}" class="image">
+                      <div class="center content">
+                        Make a new account account
+                      </div>
+                      </h2>
+                      <form class="ui large form" action="signup/" method="post">
+                        {% csrf_token %}
+                        <div class="ui stacked segment">
+                          <div class="field">
+                            <div class="ui left icon input">
+                              <i class="user icon"></i>
+                              <input type="text" class="col s6 validate" name="username" required placeholder="username">
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui left icon input">
+                              <i class="user icon"></i>
+                              <input type="text" class="col s5 validate "  name="roll" required placeholder="Roll No">
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui left icon input">
+                              <i class="user icon"></i>
+                              <input type="text" class="col s6 validate" name="name" required placeholder="Full Name">
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui left icon input">
+                              <i class="mail icon"></i>
+                              <input type="email" name="email" class="col s4 validate" required placeholder="email">
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui left icon input">
+                              <i class="phone icon"></i>
+                              <input type="number" name="ph_no" class="col s4 validate" required placeholder="Phone No.">
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui left icon input">
+                              <i class="lock icon"></i>
+                              <input type="password" name="password" class="col s6 validate" required placeholder="Password">
+                            </div>
+                          </div>
+                          <!-- <div class="ui fluid large teal submit button">Signup</div> -->
+                          <button class="ui fluid large teal button" type="submit">Signup</button>
+                        </div>
+                        <div class="ui error message"></div>
+                      </form>
+                      <div class="ui message">
+                        Already have an account?<a id="logindivert">Log In</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {% if profile %}
+                {% if register %}
+                  <div class="six wide column"  style="padding-left:7em;display:block">
+                    <a class="massive disabled ui button" id="enter">
+                      Enter Here
+                    </a>
+                  </div>
+                  {% else %}
+                  <div class="six wide column" id="register" style="padding-left:7em" >
+                    <a class="massive ui button" href="register/">
+                      Register Here
+                    </a>
+                  </div>
+                {% endif %}
+              {% else %}
+              <div class="six wide column" style="padding-left:7em" >
+                <a class="massive ui button modal-btn">
+                  Register
+                </a>
+              </div>
+              {% endif %}
+
 
             </div>
 
-            </div>
+          <h3 class="ui horizontal divider header">
+            <i class="tag icon"></i>
+            Overview
+          </h3>
+          <div class="container">
+            {% for x in description %}
+            <p>{{forloop.counter}}){{x}}</p>
+            {% endfor %}
           </div>
-        <div class="four wide column" style="">
-          <div class="ui piled segment " style="">
-            <span class="ui">TIME</span>
-            <div class="ui divider">
-            </div>
-            {% include "quiz/timer.html" %}
-            <p id="demo"></p>
-          </div>
-          <div class="ui piled segment " >
-            <span class="ui">QUESTIONS</span>
-            <div class="ui divider">
-            </div>
-            <div class="ui grid" style="margin-left:5em;margin-right:5em;margin-top:1em">
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>1</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>2</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>3</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>4</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>5</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>6</span></center>
-                </div>
-
-
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>7</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>8</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>9</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>10</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>11</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>12</span></center>
-                </div>
-
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>13</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>14</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>15</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>16</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>17</span></center>
-                </div>
-                <div class="two wide column" style="border:1px solid black;margin-right:10px;margin-bottom:1em">
-                  <center><span>18</span></center>
-                </div>
-            </div>
+          <h3 class="ui horizontal divider header">
+            <i class="file text icon"></i>
+            Rule
+          </h3>
+          <div class="container">
+            {% for x in rules %}
+            <p>{{forloop.counter}}){{x}}</p>
+            {% endfor %}
           </div>
 
-          <div class="ui piled segment " style="min-height:20em">
-            <span class="ui">ANNUOUNCMENTS</span>
-            <div class="ui divider">
-
+          <h3 class="ui horizontal divider header">
+            <i class="trophy icon"></i>
+            Prizes
+          </h3>
+          <div class="container" style="padding-top:1em">
+            <div class="ui grid" style="padding-top:1em">
+              <img src="{% static 'crypto/img/gold.png' %}" style="height:70px;width:100px;margin-right:3em">
+              <div class="ui big list">
+                <div class="item">
+                  <div class="content">
+                    <div class="header">First Prize</div>
+                      {{prizes.0}}
+                    </div>
+                  </div>
+              </div>
             </div>
+             <div class="ui grid" style="padding-top:1em">
+               <img src="{% static 'crypto/img/silver.png' %}" style="height:70px;width:100px;margin-right:3em">
+               <div class="ui big list">
+                 <div class="item">
+                   <div class="content">
+                     <div class="header">Second Prize</div>
+                       {{prizes.1}}
+                     </div>
+                   </div>
+               </div>
+             </div>
+             <div class="ui grid" style="padding-top:1em" >
+               <img src="{% static 'crypto/img/bronze.png' %}" style="height:70px;width:100px;margin-right:3em">
+               <div class="ui big list">
+                 <div class="item">
+                   <div class="content">
+                     <div class="header">Third Prize</div>
+                       {{prizes.2}}
+                     </div>
+                   </div>
+               </div>
+             </div>
+          </div>
+          <div class="ui special cards" style="padding-left:4em;padding-right:3em;padding-top:5em">
           </div>
         </div>
-
-      </div>
     </div>
     {% if user.is_authenticated %}
     <!-- logging out if no action for 30 minutes -->
     <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
     {% endif %}
-
     <script>
+    $('.modal-btn').click(function(){
+      $('.ui.modal')
+      .modal('show')
+    ;
+    });
+    $('#enter').click(function(){
+      alert('Do not close');
+      window.open('/quiz/{{contest.pk}}/live/','myWindow', "width=1500, height=1000");
+    });
+
     $(document).ready(function(){
       $('.ui.accordion').accordion('refresh');
 
@@ -179,10 +296,45 @@
       $('.special.cards .image').dimmer({
         on: 'hover'
       });
-      var duration= {{contest.d_day}}*86400+{{contest.d_hour}}*3600+{{contest.d_minute}}*60
-    </script>
-    {% block timer %}
-    {% endblock %}
+      var re = window.setInterval(func,1000);
+      var start=new Date("{{string_date}}");
+      var now=new Date();
+      function func()
+      {
+        if ( start < now)
+        {
+          $('#enter').removeClass('disabled');
+        }
+      }
+
+      var re = window.setInterval(func,1000);
+      var end=new Date("{{end_string_date}}");
+      var now=new Date();
+      function func()
+      {
+        if ( end < now)
+        {
+          window.location="/quiz/{{conetst.pk}}/result";
+        }
+      }
+
+      var re = window.setInterval(funct,1000);
+      var start=new Date("{{string_date}}");
+      var now=new Date();
+      function funct()
+      {
+        var fin1=localStorage.getItem("finished");
+        // alert(fi/n1);
+        var fin='{{register.finished}}';
+        //
+        if(fin=='True' || fin1==1)
+        {
+          // alert(fin);
+          $('#enter').addClass('disabled');
+          // localStorage.setItem("finished", "0");
+        }
+      }
+  </script>
 
   </body>
 </html>

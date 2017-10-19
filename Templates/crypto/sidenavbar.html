@@ -9,7 +9,7 @@
         {% comment %}The User Item starts here!{% endcomment %}
         {% if user.is_authenticated %}
         <div class="ui inverted centered raised item">
-            <img src="{% static 'crypto/img/zlatan.jpg' %}" class="ui small circular centered image">
+            <a href="/"><img src="{% static 'crypto/img/zlatan.jpg' %}" class="ui small circular centered image"></a>
             <br>
             <div class="ui bottom attached inverted" style="text-align: center;">
                 <h2 class="ui inverted header">{{user.username}}</h2>
