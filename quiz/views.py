@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from operator import itemgetter
 import json
 import os
 import random
@@ -102,6 +103,7 @@ def contest(request,hello):
         except:
             return render(request,  'quiz/contest.html',{'contest':contest,'prizes':prizes,'description':description,'rules':rules})
         register=Registrations.objects.filter(c_id=contest,u_id=request.user)
+        print(register)
         start=contest.start_time
         end= contest.end_time
         e_day=end.day
@@ -162,7 +164,7 @@ def submit(request,hello):
 
     lead=Leaderboard.objects.filter(u_id=request.user,c_id=contest)
     total=0
-    print ("ASDS")
+    # sprint ("ASDS")
     for l in lead:
         ques=Questions.objects.get(pk=l.q_id.pk)
         score=ques.score
@@ -329,11 +331,11 @@ def edit_contest(request,contest_id):
     else:
         form = QuestionFormObjective()
         obj=Contests.objects.get(pk=contest_id)
-        questions=Questions.objects.filter(contest_id=contest_id)
+        questions=Questhelloions.objects.filter(contest_id=contest_id)
         st=obj.start_time
         end_time=obj.end_time
         prizes=obj.prizes
-        prizes=[z.encode('ascii','ignore') for z in prizes.split('/')]
+        prizes=[z.encodehello('ascii','ignore') for z in prizes.split('/')]
         print prizes
         description=obj.description
         description=[z.encode('ascii','ignore') for z in description.split('/')]
@@ -341,3 +343,89 @@ def edit_contest(request,contest_id):
         rules=[z.encode('ascii','ignore') for z in rules.split('/')]
         # details={'cname':obj.contest_name,'description':obj.description,'c_type':obj.c_type,'rules':obj.rules,'starttime':st,'endtime':end_time}
         return render(request, 'crypto/edit_contest.html',{'form':form,'details':obj,'questions':questions,'profile':profile,'prizes':prizes,'description':description,'rules':rules})
+
+
+@login_required
+def leaderboard(request,hello):
+    # WARNING DONT USE C_ID in query set because of earlier blunders
+    obj1 = Leaderboard.objects.filter(c_id = hello)
+    lboard_obj = obj1.order_by('q_id')
+    # print
+    participation = obj1.order_by('u_id')
+    # print (participation)
+    user_ids = []
+    for i in participation:
+        user_id = i.u_id
+        if(user_id not in user_ids):
+            user_ids.append(user_id)
+    questions_obj = Questions.objects.filter(contest_id = hello).order_by('contest_id')
+    noq = len(questions_obj)
+    lboard_data = []
+    score = []
+    for i in user_ids:
+        dict2 = {}
+        dict2['user_id'] = i
+        dict2['name'] = i.first_name + " " +i.last_name
+        op = 1
+        total = 0
+        quest = []
+        for j in questions_obj:
+            f = 0
+            score.append(j.score)
+            qdict = {}
+            for k in lboard_obj:
+                # print k.q_id,j.pk
+                if( i == k.u_id and str(j.pk) == str(k.q_id)):
+                    # print "Match"
+                    f = 1
+
+                    if(k.status == 'Correct'):
+                        total += j.score
+                        qdict['correct'] = 1
+                    else:
+                        qdict['correct'] = 0
+                    break
+            # to see if attempted or not
+            print f
+            if(f == 0):
+                qdict['notattempt'] = 1
+                qdict['correct'] = 0
+            else:
+                qdict['notattempt'] = 0
+            qdict['NO'] = op
+            op += 1
+            quest.append(qdict)
+        quest = sorted(quest,key = itemgetter('NO'))
+        dict2['quest'] = quest
+        dict2['total'] = total
+        lboard_data.append(dict2)
+        print dict2
+    lboard_data = sorted(lboard_data, key=itemgetter('total'),reverse=True)
+    t1 = lboard_data[0]['total']
+    ranknow = 1
+    rankeffective = 1
+    leng = len(lboard_data)
+    lboard_data[0]['rank'] = 1
+    for i in range (1,leng):
+        rankeffective += 1
+        if(t1 > lboard_data[i]['total']):
+            lboard_data[i]['rank'] = rankeffective
+            ranknow = rankeffective
+            t1 = lboard_data[i]['total']
+        else:
+            lboard_data[i]['rank'] = ranknow
+    print(lboard_data)
+    questions = []
+    t_score = 0
+    for i in range(1,noq+1):
+        questions.append(str(i)+"["+str(score[i-1])+"]")
+        t_score += score[i-1]
+    questions = sorted(questions)
+    print questions
+    # print (questions)
+    contest_obj = Contests.objects.get(pk = hello)
+    contest_data = {'contest_name':contest_obj.contest_name, 'contest_type':contest_obj.c_type}
+    return render(request, 'quiz/showleaderboard.html',{'contest_data':contest_data,
+                                                        'lboard_data':lboard_data,
+                                                        'questions':questions,
+                                                        't_score':t_score})
