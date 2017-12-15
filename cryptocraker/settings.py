@@ -33,7 +33,6 @@ SESSION_COOKIE_AGE = 1800
 # Application definition
 
 INSTALLED_APPS = [
-    'quiz.apps.QuizConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crypto.apps.CryptoConfig',
+    'quiz.apps.QuizConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'cryptocraker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cryptocracker2',
+        'NAME': 'cryptocracker',
         'USER':'root',
-        'PASSWORD':'root',
+        'PASSWORD':'1',
         'HOST':'localhost',
     }
 }

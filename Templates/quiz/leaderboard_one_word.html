@@ -1,0 +1,40 @@
+<! FOR AJAX CALL seperate HTML>
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>User Name</th>
+      <th>Name</th>
+      <th>Final Score[{{ t_score }}]</th>
+      {% for i in questions %}
+        <th class="center aligned">Q {{ i }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in lboard_data %}
+    <tr>
+        <td><B> {{i.rank}} </B></td>
+        <td><B> {{i.user_id}} </B></td>
+        <td><B> {{i.name}} </B></td>
+        <td><B> {{i.total}} </B></td>
+          {% for j in i.quest %}
+            {% if j.notattempt %}
+            <td class="center aligned">
+                -
+            </td>
+            {% elif j.correct %}
+            <td class="center aligned">
+                <div style="color:green"> {{j.effective}}</div>
+                <div style="color:red"> [{{j.negative}}]</div>
+            </td>
+            {% else %}
+            <td class="center aligned">
+              <div style="color:red"> [{{j.negative}}]</div>
+            </td>
+            {% endif%}
+          {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'make_admin/',views.make_admin,name='make_admin'),
     url(r'admin-form/',views.admin_form,name='admin_form'),
     # url(r'^create_contest/',views.create_contest,name='create_contest'),
-    url(r'^(?P<uname>[A-z]+)/$',views.index,name='index'),
+    url(r'^(?P<uname>[0-z]+)/$',views.index,name='index'),
 ]
 
 if settings.DEBUG:
