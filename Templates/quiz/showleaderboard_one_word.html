@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<! this will call the get leaderboard function every 2 minutes or as requested>
+<html>
+	<head>
+    {% load static %}
+
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Leaderboard</title>
+		<meta name="description" content="Examples for creative website header animations using Canvas and JavaScript" />
+		<meta name="keywords" content="header, canvas, animated, creative, inspiration, javascript" />
+		<meta name="author" content="Codrops" />
+		<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/reset.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/semantic-ui/components/icon.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'crypto/css/semantic.min.css' %}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+		<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
+		<script type="text/javascript" src="{% static 'crypto/js/semantic.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'crypto/js/dropdown.js' %}"></script>
+  </head>
+<BODY>
+    <H1> <B> <CENTER>
+            LIVE  LEADERBOARD
+            <BR>
+             Contest Name : {{ contest_data.contest_name }}
+    </H1> </B> </CENTER>
+
+    <div id="to_refresh">
+    </div>
+    <input type='submit' id='button1'value = "REFRESH">
+    <script type="text/javascript">
+    function getleaderboard(){
+      $.ajax({
+        type:'POST',
+        url:'/quiz/{{contest_data.contest_id}}/live/get_leaderboard',
+        data:{csrfmiddlewaretoken: '{{ csrf_token }}'},
+        success: function(data){
+          $('#to_refresh').html(data.html);
+        },
+        error: function(err){
+          console.log(err);
+        }
+      });
+    }
+    window.onload = getleaderboard;
+    $('#button1').click(function(event){
+      event.preventDefault();
+      console.log("push hua");
+      $.ajax({
+        type:'POST',
+        url:'/quiz/{{contest_data.contest_id}}/live/get_leaderboard',
+        data:{csrfmiddlewaretoken: '{{ csrf_token }}'},
+        success: function(data){
+          console.log(data.html);
+          $('#to_refresh').html(data.html);
+        },
+        error: function(err){
+          console.log(err);
+        }
+      });
+    });
+    setInterval(getleaderboard, 120000);
+    </script>
+</BODY>
+</HTML>
