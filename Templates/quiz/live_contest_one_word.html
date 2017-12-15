@@ -53,7 +53,7 @@
        };
 
     </script>
-    <title>Past Contests</title>
+    <title>LIVE Contests</title>
   </head>
   <body oncontextmenu="return false;">
 
@@ -62,7 +62,7 @@
       <div class="ui two column grid" style="padding-top:5em;padding-bottom:15em;padding-left:5em;padding-right:5em">
         <div class="twelve wide column" style="height:fit-content">
           <div class="ui piled segment" >
-            <span class="ui"> PAST CONTESTS </span>
+            <span class="ui"> LIVE CONTESTS</span>
             <div class="ui divider">
             </div>
             <div class="total_question ui segment" style="margin:4em" >
@@ -82,43 +82,13 @@
                   </div>
                     <form class="ui form"  method="post">
                       {% csrf_token %}
-                      {% if question.options1 %}
-                      <div class="ui radio checkbox" style="margin:2em">
-                        <input type="radio"  name="answer{{question.pk}}" value="1">
-                        <label>{{question.options1}}</label>
-                      </div>
-                      {% endif %}
-                      <br>
-                      {% if question.options2 %}
-                      <div class="ui radio checkbox"style="margin:2em">
-                        <input type="radio"  name="answer{{question.pk}}" value="2">
-                        <label>{{question.options2}}</label>
-                      </div>
-                      {% endif %}
-                      <br>
-                      {% if question.options3 %}
-                      <div class="ui radio checkbox"style="margin:2em">
-                        <input type="radio" name="answer{{question.pk}}" value="3">
-                        <label>{{question.options3}}</label>
-                      </div>
-                      {% endif %}
-                      <br>
-                      {% if question.options4 %}
-                      <div class="ui radio checkbox"style="margin:2em">
-                        <input type="radio" name="answer{{question.pk}}" value="4">
-                        <label>{{question.options4}}</label>
-                      </div>
-                      {% endif %}
-                      <br>
-                      {% if question.options5 %}
-                      <div class="ui radio checkbox"style="margin:2em">
-                        <input type="radio" name="answer{{question.pk}}" value="5">
-                        <label>{{question.options5}}</label>
-                      </div>
-                      {% endif %}
-                      <br>
 
-
+                      {% if question.problem_type %}
+                      <div class="ui textbox"style="margin:2em">
+                        <input type="textbox" name="answer{{question.pk}}">
+                      </div>
+                      {% endif %}
+                <B> Penalty:{{question.negative}} per wrong attempt  <BR><BR></B>
                       <div class="ui button next">
                         Next Question
                       </div>
@@ -168,14 +138,16 @@
               </div>
             </div>
           </div>
+          <div class="ui piled segment " style="min-height:20em">
+            <span class="ui">LIVE LEADERBOARD</span>
+            <div class="ui divider">
+                <a href = "/quiz/{{contest.pk}}/live/leaderboard/" target = "_blank" > CLICK HERE</a>
+            </div>
+          </div>
         </div>
 
       </div>
     </div>
-    {% if user.is_authenticated %}
-    <!-- logging out if no action for 30 minutes -->
-    <script type="text/javascript" src="{% static 'crypto/js/logout_session.js' %}"></script>
-    {% endif %}
 
     <script>
     var count={{contest.question_count}};
@@ -266,15 +238,24 @@
       $('.submit_bt').click(function(event){
         event.preventDefault();
         pk=$(this).attr('data-pk');
-        var ans = $('input[name=answer'+pk+']:checked').val();
+        var ans = $('input[name=answer'+pk+']').val();
         var csrf = $('input[name=csrfmiddlewaretoken]').val();
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var secs = date.getSeconds();
+        var timestamp = hour + ":" + min + ":" + secs;
+        console.log(timestamp);
+        console.log(ans);
         // alert("pk="+pk+"/nans"+ans);
         $.ajax({
           type: 'POST',
           url:'/quiz/{{contest.pk}}/ajax',
-          data:{ 'question':pk, 'answer': ans, 'csrfmiddlewaretoken':csrf, },
-          success: function(data){
+          data:{ 'question':pk, 'answer': ans, 'time':timestamp, 'csrfmiddlewaretoken':csrf },
+          success: function(data)
+          {
             console.log(data);
+            alert(data.status);
             $('#question'+id).css({'display':'none'});
             $('#ann'+id).css({'display':'none'});
             $('#qt'+id).css({'background':'white'});
@@ -302,7 +283,6 @@
             alert(data.message+"\n"+data.score);
             localStorage.setItem("finished", "1");
             window.close();
-
           },
           error: function(data,err){
             alert(err);

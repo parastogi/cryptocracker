@@ -42,6 +42,11 @@ class QuestionFormOneWord(forms.Form):
     answer=forms.CharField(label='answer',max_length=1000)
     image=forms.FileField(label='img')
     score=forms.IntegerField(label='score')
+    negative = forms.IntegerField(label='negative',required=True, max_value = 100, min_value = 0,
+                            widget=forms.NumberInput(attrs={'id': 'form_negative', 'step': "1"}))
+    def __init__(self, *args, **kwargs):
+        super(QuestionFormOneWord, self).__init__(*args, **kwargs)
+        self.fields['image'].widget.attrs.update({'accept': 'image/*'})
 
 class QuestionFormObjective(forms.Form):
     problem_statement=forms.CharField(label='question',max_length=2000,widget=forms.Textarea(attrs={'placeholder':'Description'}))

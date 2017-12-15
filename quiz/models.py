@@ -17,7 +17,7 @@ class Contests(models.Model):
     d_day=models.CharField(max_length=2, null=True)
     d_hour=models.CharField(max_length=2, null=True)
     d_minute=models.CharField(max_length=2, null=True)
-    total_score=models.IntegerField(default=0)
+    total_score=models.FloatField(default=0)
     contestants=models.IntegerField(null=True)
     prizes=models.CharField(max_length=1000, null=True)
     def __str__(self):
@@ -34,8 +34,9 @@ class Questions(models.Model):
     options5=models.CharField(null=True, max_length=1000)
     problem_statement=models.CharField(max_length=2000)
     announcement=models.CharField(max_length=2000)
-    score=models.IntegerField(default=0)
+    score=models.FloatField(default=0)
     option=models.CharField(max_length=1000,null=True)
+    negative=models.FloatField(null=True)
     def __str__(self):
         return str(self.pk)
 
